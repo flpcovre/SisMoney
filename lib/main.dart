@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sismoney/routes/routes.dart';
+import 'package:get/get.dart';
+import 'package:sismoney/routes/router_app.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,14 +11,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'SisMoney',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0XFF94B9FF)),
-        fontFamily: 'JetBrains Mono'
+        fontFamily: 'JetBrains Mono',
       ),
-      initialRoute: AppRoutes.initialRoute,
-      routes: AppRoutes.routes,
+      initialRoute: RouterApp.initialRoute,
+      getPages: RouterApp.getPages,
     );
   }
 }

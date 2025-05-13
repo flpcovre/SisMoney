@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
+import 'package:sismoney/routes/router_app.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -105,9 +107,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 
   void _goToNextPage() {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const Placeholder()));
+    Get.toNamed(RouterApp.splash);
   }
 
   @override
