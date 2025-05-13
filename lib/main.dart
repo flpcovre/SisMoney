@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SisMoney',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0XFF94B9FF)),
+        fontFamily: 'JetBrains Mono'
       ),
       initialRoute: AppRoutes.initialRoute,
       routes: AppRoutes.routes,
