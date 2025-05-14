@@ -8,7 +8,7 @@ Este diretório deve conter as páginas principais da aplicação, organizadas e
 lib/
 └── pages/
 ├──────── home/
-│    └─────── home_screen.dart
+│    └─────── home_page.dart
 └──────── login/
-     └─────── login_screen.dart
+     └─────── login_page.dart
 ```
