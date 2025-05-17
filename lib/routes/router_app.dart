@@ -8,7 +8,7 @@ class RouterApp {
   static const String register = '/register';
   static const String questions = '/questions';
 
-  static const String initialRoute = splash;
+  static const String initialRoute = questions;
 
   static final List<GetPage> getPages = [
     GetPage(
