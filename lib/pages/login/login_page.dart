@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/AppIcon.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
 import 'package:sismoney/pages/login/login_page_controller.dart';
+import 'package:sismoney/routes/router_app.dart';
 import 'package:sismoney/utils/validators.dart';
 
 class LoginPage extends StatelessWidget {
@@ -26,13 +28,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {Get.back();},
-        ),
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: FractionallySizedBox(
@@ -42,16 +37,12 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(
-                    'lib/assets/img/robot.png',
-                    height: 100,
-                    width: 100,
-                  ),
+                  AppIcon(heigth: 100, width: 100),
                   const SizedBox(height: 32),
 
                   TextFormField(
                     controller: controller.emailController,
-                    decoration: _inputDecoration('email'),
+                    decoration: _inputDecoration('Preencha seu E-mail'),
                     validator:
                         (_) => validateEmail(controller.emailController.text),
                   ),
@@ -60,7 +51,7 @@ class LoginPage extends StatelessWidget {
                   TextFormField(
                     controller: controller.passwordController,
                     obscureText: true,
-                    decoration: _inputDecoration('senha'),
+                    decoration: _inputDecoration('Preencha sua Senha'),
                     validator:
                         (_) => validatePassword(
                           controller.passwordController.text,
@@ -84,7 +75,7 @@ class LoginPage extends StatelessWidget {
                       child: const Text(
                         'Entrar',
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -120,7 +111,7 @@ class LoginPage extends StatelessWidget {
                       label: const Text(
                         'Entrar com Google',
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -133,6 +124,32 @@ class LoginPage extends StatelessWidget {
                       controller.formError.string,
                       style: const TextStyle(height: 1.2, color: Colors.red),
                     ),
+                  ),
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Não possui uma conta?',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(RouterApp.register);
+                        },
+                        child: const Text(
+                          'Clique Aqui',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xFF5271FF),
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
