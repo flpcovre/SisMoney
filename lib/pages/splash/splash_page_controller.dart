@@ -85,7 +85,7 @@ class SplashPageController extends GetxController with GetTickerProviderStateMix
 
   void _startExitAnimation() {
     exitController.forward().whenComplete(() {
-      Get.toNamed(RouterApp.questions);
+      Get.toNamed(RouterApp.login);
     });
   }
 

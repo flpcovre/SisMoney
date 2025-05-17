@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/AppIcon.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
-import 'splash_page_controller.dart'; 
+import 'splash_page_controller.dart';
 
 class SplashPage extends StatelessWidget {
   SplashPage({super.key});
@@ -43,19 +44,21 @@ class SplashPage extends StatelessWidget {
               children: [
                 ScaleTransition(
                   scale: pageController.imageScale,
-                  child: Image.asset('lib/assets/img/robot.png', width: 100),
+                  child: AppIcon(width: 100),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
                   height: 50,
-                  child: Obx(() => RichText(
-                        text: TextSpan(
-                          children: _buildStyledText(
-                            pageController.fullText,
-                            pageController.currentLength.value,
-                          ),
+                  child: Obx(
+                    () => RichText(
+                      text: TextSpan(
+                        children: _buildStyledText(
+                          pageController.fullText,
+                          pageController.currentLength.value,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

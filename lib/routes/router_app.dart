@@ -5,12 +5,12 @@ import 'package:sismoney/pages/splash/splash_page.dart';
 import 'package:sismoney/pages/questions/questions_page.dart';
 
 class RouterApp {
-  static const String splash = '/splash';
-  static const String register = '/register';
-  static const String login = '/login';
+  static const String splash    = '/splash';
+  static const String register  = '/register';
+  static const String login     = '/login';
   static const String questions = '/questions';
 
-  static const String initialRoute = questions;
+  static const String initialRoute = splash;
 
   static final List<GetPage> getPages = [
     GetPage(

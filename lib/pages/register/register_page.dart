@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/AppIcon.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
 import 'package:sismoney/pages/register/register_page_controller.dart';
 import 'package:sismoney/utils/validators.dart';
@@ -42,16 +43,15 @@ class RegisterPage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(
-                    'lib/assets/img/robot.png',
-                    height: 100,
+                  AppIcon(
+                    heigth: 100,
                     width: 100,
                   ),
                   const SizedBox(height: 32),
 
                   TextFormField(
                     controller: controller.nameController,
-                    decoration: _inputDecoration('nome'),
+                    decoration: _inputDecoration('Preencha seu Nome'),
                     validator:
                         (_) => validateName(controller.nameController.text),
                   ),
@@ -59,7 +59,7 @@ class RegisterPage extends StatelessWidget {
 
                   TextFormField(
                     controller: controller.emailController,
-                    decoration: _inputDecoration('email'),
+                    decoration: _inputDecoration('Preencha seu E-mail'),
                     validator:
                         (_) => validateEmail(controller.emailController.text),
                   ),
@@ -68,7 +68,7 @@ class RegisterPage extends StatelessWidget {
                   TextFormField(
                     controller: controller.passwordController,
                     obscureText: true,
-                    decoration: _inputDecoration('senha'),
+                    decoration: _inputDecoration('Preencha sua Senha'),
                     validator:
                         (_) => validatePassword(
                           controller.passwordController.text,
@@ -79,7 +79,7 @@ class RegisterPage extends StatelessWidget {
                   TextFormField(
                     controller: controller.confirmPasswordController,
                     obscureText: true,
-                    decoration: _inputDecoration('confirmar senha'),
+                    decoration: _inputDecoration('Confirme sua senha'),
                     validator:
                         (_) => validateConfirmPassword(
                           controller.passwordController.text,
@@ -104,7 +104,7 @@ class RegisterPage extends StatelessWidget {
                       child: const Text(
                         'Registrar',
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -140,7 +140,7 @@ class RegisterPage extends StatelessWidget {
                       label: const Text(
                         'Entrar com Google',
                         style: TextStyle(
-                          fontSize: 12.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

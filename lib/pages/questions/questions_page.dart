@@ -10,7 +10,7 @@ class QuestionsPage extends StatelessWidget {
 
   final QuestionsPageController controller = Get.put(QuestionsPageController());
   final PageController pageController = Get.put(PageController());
-
+  
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
@@ -21,14 +21,11 @@ class QuestionsPage extends StatelessWidget {
             Obx(() {
               final isFirstPage = controller.pageIndex.value == 0;
               final offsetY = isFirstPage ? 1600.0 : 700.0;
-
               return AnimatedSlide(
                 offset: Offset(0, offsetY / 1000),
                 duration: Duration(milliseconds: 200),
                 curve: Curves.easeOut,
-                child: AppIcon(
-                  width: 115,
-                )
+                child: AppIcon(width: 115),
               );
             }),
             SizedBox(
