@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/routes/router_app.dart';
 
-class SplashGetxController extends GetxController with GetTickerProviderStateMixin {
+class SplashPageController extends GetxController with GetTickerProviderStateMixin {
   late final AnimationController imageController;
   late final Animation<double> imageScale;
 

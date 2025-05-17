@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
-import 'splash_getx_controller.dart'; 
+import 'splash_page_controller.dart'; 
 
 class SplashPage extends StatelessWidget {
   SplashPage({super.key});
-  final SplashGetxController pageController = Get.put(SplashGetxController());
+  final SplashPageController pageController = Get.put(SplashPageController());
 
   List<InlineSpan> _buildStyledText(String text, int currentLength) {
     return List.generate(currentLength, (index) {
