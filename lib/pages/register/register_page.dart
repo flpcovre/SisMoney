@@ -1,44 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
-import 'package:sismoney/pages/register/register_getx_controller.dart';
+import 'package:sismoney/pages/register/register_page_controller.dart';
+import 'package:sismoney/utils/validators.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterPage extends StatelessWidget {
+  RegisterPage({super.key});
 
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  final controller = Get.put(RegisterController());
-  final _formKey = GlobalKey<FormState>();
+  final controller = Get.put(RegisterPageController());
 
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: TextStyle(
-        color: Color(0xFFBEBEBE)
-      ),
-      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+      hintStyle: const TextStyle(color: Color(0xFFBEBEBE)),
+      isDense: true,
+      contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       errorMaxLines: 2,
+      errorStyle: const TextStyle(height: 1.2),
       filled: true,
-      fillColor: Color(0xFFECECEC),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      fillColor: const Color(0xFFECECEC),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {Get.back();},
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: FractionallySizedBox(
             widthFactor: 0.5,
             child: Form(
-              key: _formKey,
+              key: controller.formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -47,60 +47,70 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 100,
                     width: 100,
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
 
                   TextFormField(
-                    controller: controller.loginController,
-                    decoration: _inputDecoration('login'),
-                    validator: controller.validarLogin,
+                    controller: controller.nameController,
+                    decoration: _inputDecoration('nome'),
+                    validator:
+                        (_) => validatename(controller.nameController.text),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   TextFormField(
                     controller: controller.emailController,
                     decoration: _inputDecoration('email'),
-                    validator: controller.validarEmail,
+                    validator:
+                        (_) => validateEmail(controller.emailController.text),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   TextFormField(
-                    controller: controller.senhaController,
+                    controller: controller.passwordController,
                     obscureText: true,
                     decoration: _inputDecoration('senha'),
-                    validator: controller.validarSenha,
+                    validator:
+                        (_) => validatePassword(
+                          controller.passwordController.text,
+                        ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   TextFormField(
-                    controller: controller.confirmarSenhaController,
+                    controller: controller.confirmPasswordController,
                     obscureText: true,
                     decoration: _inputDecoration('confirmar senha'),
-                    validator: controller.validarConfirmarSenha,
+                    validator:
+                        (_) => validateConfirmPassword(
+                          controller.passwordController.text,
+                          controller.confirmPasswordController.text,
+                        ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   SizedBox(
                     width: double.infinity,
                     height: 50.0,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF5271FF),
+                        backgroundColor: const Color(0xFF5271FF),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: () {
-                        //register logic
-                        if (_formKey.currentState!.validate()) {
-
-                        }
-                      },
-                      child: Text('Registrar'),
+                      onPressed: controller.registerUserEmailPassword,
+                      child: const Text(
+                        'Registrar',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   SizedBox(
                     width: double.infinity,
@@ -112,27 +122,36 @@ class _RegisterPageState extends State<RegisterPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: () {
-                        //register with Google logic
-                        if (_formKey.currentState!.validate()) {
-
-                        }
-                      },
+                      onPressed: controller.registerUserGoogle,
                       icon: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Color(0xFFECECEC),
+                          color: const Color(0xFFECECEC),
                         ),
-                        padding: EdgeInsets.all(2),
+                        padding: const EdgeInsets.all(2),
                         child: Image.asset(
                           'lib/assets/img/google-icon.png',
                           height: 24,
                           width: 24,
                         ),
                       ),
-                      label: Text('Entrar com Google'),
+                      label: const Text(
+                        'Entrar com Google',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+
+                  Obx(
+                    () => Text(
+                      controller.formError.string,
+                      style: const TextStyle(height: 1.2, color: Colors.red),
                     ),
                   ),
                 ],
