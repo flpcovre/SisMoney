@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 class GradientScaffold extends StatelessWidget {
   final Widget body;
+  final PreferredSizeWidget? appBar;
 
-  const GradientScaffold({super.key, required this.body});
+  const GradientScaffold({super.key, required this.body, this.appBar});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
+      appBar: appBar,
       body: Stack(
         children: [
           Container(
