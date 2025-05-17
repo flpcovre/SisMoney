@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
-import 'package:sismoney/pages/register/register_page_controller.dart';
+import 'package:sismoney/pages/login/login_page_controller.dart';
 import 'package:sismoney/utils/validators.dart';
 
-class RegisterPage extends StatelessWidget {
-  RegisterPage({super.key});
+class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
 
-  final controller = Get.put(RegisterPageController());
+  final controller = Get.put(LoginPageController());
 
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
@@ -50,14 +50,6 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   TextFormField(
-                    controller: controller.nameController,
-                    decoration: _inputDecoration('nome'),
-                    validator:
-                        (_) => validateName(controller.nameController.text),
-                  ),
-                  const SizedBox(height: 16),
-
-                  TextFormField(
                     controller: controller.emailController,
                     decoration: _inputDecoration('email'),
                     validator:
@@ -76,18 +68,6 @@ class RegisterPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  TextFormField(
-                    controller: controller.confirmPasswordController,
-                    obscureText: true,
-                    decoration: _inputDecoration('confirmar senha'),
-                    validator:
-                        (_) => validateConfirmPassword(
-                          controller.passwordController.text,
-                          controller.confirmPasswordController.text,
-                        ),
-                  ),
-                  const SizedBox(height: 16),
-
                   SizedBox(
                     width: double.infinity,
                     height: 50.0,
@@ -100,9 +80,9 @@ class RegisterPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: controller.registerUserEmailPassword,
+                      onPressed: controller.loginUserEmailPassword,
                       child: const Text(
-                        'Registrar',
+                        'Entrar',
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.bold,
@@ -124,7 +104,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: controller.registerUserGoogle,
+                      onPressed: controller.loginUserGoogle,
                       icon: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
