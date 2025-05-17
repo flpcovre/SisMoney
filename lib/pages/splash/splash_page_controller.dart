@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/routes/router_app.dart';
 
-class SplashGetxController extends GetxController with GetTickerProviderStateMixin {
+class SplashPageController extends GetxController with GetTickerProviderStateMixin {
   late final AnimationController imageController;
   late final Animation<double> imageScale;
 
@@ -45,7 +45,7 @@ class SplashGetxController extends GetxController with GetTickerProviderStateMix
 
     exitController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 300),
     );
 
     fadeOutAnimation = CurvedAnimation(
@@ -85,7 +85,7 @@ class SplashGetxController extends GetxController with GetTickerProviderStateMix
 
   void _startExitAnimation() {
     exitController.forward().whenComplete(() {
-      Get.toNamed(RouterApp.splash);
+      Get.toNamed(RouterApp.login);
     });
   }
 
