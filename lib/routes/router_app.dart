@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
+import 'package:sismoney/pages/login/login_page.dart';
 import 'package:sismoney/pages/register/register_page.dart';
 import 'package:sismoney/pages/splash/splash_page.dart';
 
 class RouterApp {
   static const String splash = '/splash';
   static const String register = '/register';
+  static const String login = '/login';
 
   static const String initialRoute = splash;
 
@@ -16,6 +18,10 @@ class RouterApp {
     GetPage(
       name: register,
       page: () => RegisterPage(),
+    ),
+    GetPage(
+      name: login,
+      page: () => LoginPage(),
     ),
   ];
 }

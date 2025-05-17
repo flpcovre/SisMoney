@@ -1,6 +1,6 @@
-String? validatename(String? value) {
+String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Preencha o name';
+      return 'Preencha o nome';
     }
     return null;
   }
