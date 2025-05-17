@@ -7,8 +7,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class QuestionsPage extends StatelessWidget {
   QuestionsPage({super.key});
 
-  final QuestionsPageController controller = QuestionsPageController();
-  final pageController = PageController();
+  final QuestionsPageController controller = Get.put(QuestionsPageController());
+  final PageController pageController = Get.put(PageController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,10 @@ class QuestionsPage extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            const Spacer(),
-            Image.asset('lib/assets/img/robot.png', width: 100),
-            const SizedBox(height: 16),
+            Transform.translate(
+              offset: Offset(0, 60),
+              child: Image.asset('lib/assets/img/robot.png', width: 115),
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.6,
               child: PageView.builder(
@@ -30,62 +31,106 @@ class QuestionsPage extends StatelessWidget {
                 },
                 itemBuilder: (context, index) {
                   final question = controller.questions[index];
-                  final alternativas = question['alternativas'] as List<String>;
+                  final alternativas =
+                      question['alternatives'] as List<Map<String, dynamic>>;
 
                   return SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            question['pergunta'] as String,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          ...alternativas.map((alt) {
-                            return Obx(() {
-                              return Container(
-                                margin: const EdgeInsets.symmetric(vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context).size.height * 0.65,
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                question['description'] as String,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              ...alternativas.map((alt) {
+                                return Obx(() {
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 4,
                                     ),
-                                  ],
-                                ),
-                                child: RadioListTile<String>(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  title: Text(alt),
-                                  value: alt,
-                                  groupValue: controller.answers[index],
-                                  onChanged: (value) =>
-                                      controller.answers[index] = value!,
-                                ),
-                              );
-                            });
-                          }),
-                        ],
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: RadioListTile<String>(
+                                      activeColor: Color(0xFF5271FF),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                          ),
+                                      title: Text(alt['description']),
+                                      value: alt['id'].toString(),
+                                      groupValue:
+                                          controller.answers[question['id']],
+                                      onChanged: (value) {
+                                        controller.answers[question['id']as int] = value!;
+                                        controller.checkIfQuestionsAnswered();
+                                      },
+                                    ),
+                                  );
+                                });
+                              }),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   );
                 },
               ),
             ),
-            const Spacer(), // Adiciona espaço flexível na base
+            Obx(() {
+              return SizedBox(
+                height: 60.0,
+                width: 170,
+                child: AnimatedOpacity(
+                  duration: Duration(milliseconds: 200),
+                  opacity: controller.questionsAnswered.value ? 1.0 : 0.0,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF5271FF),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    onPressed:
+                        () {},
+                    child: Text(
+                      'Tudo pronto!',
+                      style: TextStyle(
+                        fontSize: 18
+                      )
+                    ),
+                  ),
+                ),
+              );
+            }),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: SmoothPageIndicator(
@@ -94,7 +139,7 @@ class QuestionsPage extends StatelessWidget {
                 effect: WormEffect(
                   dotHeight: 12,
                   dotWidth: 12,
-                  activeDotColor: Theme.of(context).primaryColor,
+                  activeDotColor: Color(0xFF5271FF),
                 ),
                 onDotClicked: (index) {
                   pageController.animateToPage(

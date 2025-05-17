@@ -6,7 +6,7 @@ class RouterApp {
   static const String splash = '/splash';
   static const String questions = '/questions';
 
-  static const String initialRoute = questions;
+  static const String initialRoute = splash;
 
   static final List<GetPage> getPages = [
     GetPage(

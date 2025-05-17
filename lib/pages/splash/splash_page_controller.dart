@@ -45,7 +45,7 @@ class SplashPageController extends GetxController with GetTickerProviderStateMix
 
     exitController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 300),
     );
 
     fadeOutAnimation = CurvedAnimation(
@@ -85,7 +85,7 @@ class SplashPageController extends GetxController with GetTickerProviderStateMix
 
   void _startExitAnimation() {
     exitController.forward().whenComplete(() {
-      Get.toNamed(RouterApp.splash);
+      Get.toNamed(RouterApp.questions);
     });
   }
 

@@ -1,38 +1,42 @@
 import 'package:get/get.dart';
 
 class QuestionsPageController extends GetxController {
-  var pageIndex = 0.obs;
+  RxInt pageIndex = 0.obs;
+  RxMap<int, String> answers = <int, String>{}.obs;
+  RxBool questionsAnswered = false.obs;
 
-  var answers = <int, String>{}.obs;
-
-  final questions = [
+  final List<Map<String, Object>> questions = [
     {
-      'pergunta': 'Qual o seu principal objetivo financeiro no momento?',
-      'alternativas': [
-        'Quitar dívidas',
-        'Poupar dinheiro',
-        'Investir para o futuro',
-        'Controlar melhor os gastos',
-        'Fazer uma grande compra',
+      'id': 1,
+      'description': 'Qual o seu principal objetivo financeiro no momento?',
+      'alternatives': [
+        {'id': 1, 'description': 'Quitar dívidas'},
+        {'id': 2, 'description': 'Poupar dinheiro'},
+        {'id': 3, 'description': 'Investir para o futuro'},
+        {'id': 4, 'description': 'Controlar melhor os gastos'},
+        {'id': 5, 'description': 'Fazer uma grande compra'},
       ],
     },
     {
-      'pergunta': 'Qual a sua principal fonte de renda?',
-      'alternativas': [
-        'Salário fixo',
-        'Renda variável',
-        'Empreendimento próprio',
-        'Aposentadoria/pensão',
-        'Nenhuma no momento',
+      'id': 2,
+      'description': 'Qual a sua principal fonte de renda?',
+      'alternatives': [
+        {'id': 1, 'description': 'Salário fixo'},
+        {'id': 2, 'description': 'Renda variável'},
+        {'id': 3, 'description': 'Empreendimento próprio'},
+        {'id': 4, 'description': 'Aposentadoria/pensão'},
+        {'id': 5, 'description': 'Nenhuma no momento'},
       ],
     },
   ];
 
+  void checkIfQuestionsAnswered() {
+    questionsAnswered.value = answers.length == questions.length;
+  }
+
   @override
   void onInit() {
     super.onInit();
-  
-    
   }
 
   @override

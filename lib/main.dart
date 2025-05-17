@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0XFF94B9FF)),
         fontFamily: 'JetBrains Mono',
       ),
+      defaultTransition: Transition.fade,
+      transitionDuration: Duration(milliseconds: 600),
       initialRoute: RouterApp.initialRoute,
       getPages: RouterApp.getPages,
     );
