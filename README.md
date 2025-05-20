@@ -24,3 +24,25 @@ Siga o passo a passo abaixo para realizar a instação
     ```bash
     flutter run
     ```
+
+
+4. **Installing and Setting up Firebase**
+
+    1. Install the Firebase CLI
+        1. Install NPM [NPM Official Documentation](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
+        2. Install Firebase Tools
+        ```bash
+        npm install -g firebase-tools
+        ```
+        3. Log in to Firebase with your Google Account
+        ```bash
+        firebase login
+        ```
+    2. Install FlutterFire CLI
+    ```bash
+    dart pub global activate flutterfire_cli
+    ```
+    3. Set up FlutterFire
+    ```bash
+    flutterfire configure
+    ```
