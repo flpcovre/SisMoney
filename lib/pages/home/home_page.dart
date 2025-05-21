@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
 
   final HomePageController controller = Get.put(HomePageController());
 
-  Widget emptyHome() {
+  Widget _buildEmptyHome() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -43,25 +43,81 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _buildListView(context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: controller.assessments.length,
+        itemBuilder: (context, index) {
+          final assessment = controller.assessments[index];
+
+          return InkWell(
+            onTap: () {},
+            borderRadius: BorderRadius.circular(16),
+            child: Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Icon(Icons.bar_chart, size: 36, color: Colors.blueAccent),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Avaliação ${assessment.id}',
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${assessment.startDate} - ${assessment.endDate}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${assessment.percent}%',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleLarge?.copyWith(color: assessment.profit ? Colors.green : Colors.red),
+                    ),
+                    const SizedBox(width: 15),
+                    const Icon(Icons.arrow_forward_ios, size: 16),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       body: Obx(() {
         return controller.isEmpty.value
-            ? emptyHome()
+            ? _buildEmptyHome()
             : Padding(
               padding: const EdgeInsets.all(18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Suas Avaliações',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold, 
-                      fontSize: 20
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   SizedBox(height: 20),
+
+                  _buildListView(context)
                 ],
               ),
             );
