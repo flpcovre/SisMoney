@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sismoney/components/AppIcon.dart';
+import 'package:sismoney/components/app_icon.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
 import 'package:sismoney/pages/login/login_page_controller.dart';
 import 'package:sismoney/routes/router_app.dart';
@@ -126,6 +126,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
 
+                  SizedBox(height: 10),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

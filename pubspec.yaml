@@ -33,6 +33,8 @@ flutter:
   assets:
     - lib/assets/img/robot.png
     - lib/assets/img/google-icon.png
+    - lib/assets/img/circle-avatar.png
+    - lib/assets/img/empty-box.png
 
   fonts:
     - family: JetBrains Mono

@@ -20,7 +20,27 @@ Siga o passo a passo abaixo para realizar a instação
     flutter pub get
     ```
 
-3. **Iniciar a Aplicação**
+3. **Instalar o Firebase Tools**
+    ``` bash
+    npm install -g firebase-tools
+    ```
+
+4. **Realizar o Login no Firebase com sua Conta Google**
+    ```bash
+    firebase login
+    ```
+
+5. **Instalar o FlutterFire CLI**
+    ```bash
+    dart pub global activate flutterfire_cli
+    ```
+
+6. **Configurar o FlutterFire**
+    ```bash
+    flutterfire configure
+    ```
+
+7. **Iniciar a Aplicação**
     ```bash
     flutter run
     ```

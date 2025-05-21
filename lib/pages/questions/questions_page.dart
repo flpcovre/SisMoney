@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sismoney/components/AppIcon.dart';
+import 'package:sismoney/components/app_icon.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
 import 'package:sismoney/pages/questions/questions_page_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -63,8 +63,7 @@ class QuestionsPage extends StatelessWidget {
                   }
 
                   final question = controller.questions[index - 1];
-                  final alternativas =
-                      question['alternatives'] as List<Map<String, dynamic>>;
+                  final alternative = question.alternatives;
 
                   return SingleChildScrollView(
                     child: ConstrainedBox(
@@ -79,7 +78,7 @@ class QuestionsPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                question['description'] as String,
+                                question.description,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -87,7 +86,7 @@ class QuestionsPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              ...alternativas.map((alt) {
+                              ...alternative.map((alt) {
                                 return Obx(() {
                                   return Container(
                                     margin: const EdgeInsets.symmetric(
@@ -113,13 +112,12 @@ class QuestionsPage extends StatelessWidget {
                                           const EdgeInsets.symmetric(
                                             horizontal: 12,
                                           ),
-                                      title: Text(alt['description']),
-                                      value: alt['id'].toString(),
+                                      title: Text(alt.description),
+                                      value: alt.id.toString(),
                                       groupValue:
-                                          controller.answers[question['id']],
+                                          controller.answers[question.id],
                                       onChanged: (value) {
-                                        controller.answers[question['id']
-                                                as int] =
+                                        controller.answers[question.id] =
                                             value!;
                                         controller.checkIfQuestionsAnswered();
                                       },
