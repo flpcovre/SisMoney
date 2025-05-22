@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:sismoney/models/alternative.dart';
+import 'package:sismoney/controllers/question_controller.dart';
 import 'package:sismoney/models/question.dart';
 
 class QuestionsPageController extends GetxController {
@@ -7,30 +7,9 @@ class QuestionsPageController extends GetxController {
   RxMap<int, String> answers = <int, String>{}.obs;
   RxBool questionsAnswered = false.obs;
 
-  final List<Question> questions = [
-    Question(
-      id: 1, 
-      description: 'Qual o seu principal objetivo financeiro no momento?', 
-      alternatives: [
-        Alternative(id: 1, description: 'Quitar dívidas'),
-        Alternative(id: 2, description: 'Poupar dinheiro'),
-        Alternative(id: 3, description: 'Investir para o futuro'),
-        Alternative(id: 4, description: 'Controlar melhor os gastos'),
-        Alternative(id: 5, description: 'Fazer uma grande compra'),
-      ]
-    ),
-    Question(
-      id: 1, 
-      description: 'Qual a sua principal fonte de renda?', 
-      alternatives: [
-        Alternative(id: 1, description: 'Salário fixo'),
-        Alternative(id: 2, description: 'Renda variável'),
-        Alternative(id: 3, description: 'Empreendimento próprio'),
-        Alternative(id: 4, description: 'Aposentadoria/pensão'),
-        Alternative(id: 5, description: 'Nenhuma no momento'),
-      ]
-    ),
-  ];
+  final QuestionController _questionController = Get.find<QuestionController>();
+
+  RxList<Question> questions = <Question>[].obs;
 
   void checkIfQuestionsAnswered() {
     questionsAnswered.value = answers.length == questions.length;
@@ -39,10 +18,11 @@ class QuestionsPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _loadQuestions();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  Future<void> _loadQuestions() async {
+    final fetchedQuestions = await _questionController.fetch();
+    questions.value = fetchedQuestions;
   }
 }

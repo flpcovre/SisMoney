@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/firebase_options.dart';
+import 'package:sismoney/providers/app_binding.dart';
 import 'package:sismoney/routes/router_app.dart';
 
 void main() async {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0XFF94B9FF)),
         fontFamily: 'JetBrains Mono',
       ),
+      initialBinding: AppBinding(),
       initialRoute: RouterApp.initialRoute,
       getPages: RouterApp.getPages,
     );
