@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sismoney/pages/home/home_page.dart';
 import 'package:sismoney/pages/login/login_page.dart';
 import 'package:sismoney/pages/register/register_page.dart';
 import 'package:sismoney/pages/splash/splash_page.dart';
@@ -9,8 +10,9 @@ class RouterApp {
   static const String register  = '/register';
   static const String login     = '/login';
   static const String questions = '/questions';
+  static const String home      = '/home';
 
-  static const String initialRoute = splash;
+  static const String initialRoute = home;
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -28,6 +30,10 @@ class RouterApp {
     GetPage(
       name: questions,
       page: () => QuestionsPage()
+    ),
+    GetPage(
+      name: home,
+      page: () => HomePage()
     ),
   ];
 }

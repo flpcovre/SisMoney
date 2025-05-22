@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/routes/router_app.dart';
 
 class LoginPageController extends GetxController {
   final emailController = TextEditingController();
@@ -20,10 +21,11 @@ class LoginPageController extends GetxController {
 
   bool loginUserEmailPassword() {
     if (!validateForm()) return false;
-    
-    const registeredEmail = 'user@email.com';
+
+    const registeredEmail = 'admin@admin.com';
     const registeredPassword = '123456';
-    if (emailController.text != registeredEmail || passwordController.text != registeredPassword) {
+    if (emailController.text != registeredEmail ||
+        passwordController.text != registeredPassword) {
       setFormError('Email ou senha incorretos');
       return false;
     }
@@ -31,6 +33,8 @@ class LoginPageController extends GetxController {
     print('Logging in with Email and Password...');
     print('Email: ${emailController.text}');
     print('Password: ${passwordController.text}');
+
+    Get.toNamed(RouterApp.home);
     return true;
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sismoney/components/AppIcon.dart';
+import 'package:sismoney/components/app_icon.dart';
 import 'package:sismoney/layouts/gradient_scaffold.dart';
 import 'splash_page_controller.dart';
 
