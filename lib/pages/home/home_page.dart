@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/skeletons/card_skeleton.dart';
 import 'package:sismoney/layouts/base_scaffold.dart';
-import 'package:sismoney/models/assessment.dart';
+import 'package:sismoney/models/user.dart';
 import 'package:sismoney/pages/home/home_page_controller.dart';
+import 'package:sismoney/utils/formatters.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -76,7 +78,7 @@ class HomePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${assessment.startDate} - ${assessment.endDate}',
+                            '${toDate(assessment.startDate)} - ${toDate(assessment.endDate)}',
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
@@ -110,7 +112,7 @@ class HomePage extends StatelessWidget {
           final assessments = snapshot.data;
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return CardSkeleton();
           }
 
           if (snapshot.hasError) {
@@ -131,13 +133,12 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 SizedBox(height: 20),
-          
+
                 _buildListView(context, assessments),
               ],
-            )
+            ),
           );
-        }
-        
+        },
       ),
 
       floatingActionButton: FloatingActionButton(
