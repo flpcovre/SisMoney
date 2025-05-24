@@ -1,4 +1,4 @@
-import 'package:sismoney/models/contracts/autenticatable.dart';
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/repositories/contracts/assessment_repository.dart';
 import 'package:sismoney/services/contracts/assessment_service.dart';
@@ -9,12 +9,12 @@ class AssessmentServiceImpl implements AssessmentService {
   AssessmentServiceImpl(this._assessmentRepository);
 
   @override
-  Stream<List<Assessment>> getAssessments(Autenticatable user) {
+  Stream<List<Assessment>> getAssessments(Authenticatable user) {
     return _assessmentRepository.getAllAssessmentsByUser(user);
   }
 
   @override
-  Future<Assessment> createAssessment(Autenticatable user, Assessment assessment) async {
+  Future<Assessment> createAssessment(Authenticatable user, Assessment assessment) async {
     return await _assessmentRepository.createAssessment(user, assessment);
   }
 

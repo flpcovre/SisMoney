@@ -9,20 +9,13 @@ class QuestionsPageController extends GetxController {
 
   final QuestionController _questionController = Get.find<QuestionController>();
 
-  RxList<Question> questions = <Question>[].obs;
-
-  void checkIfQuestionsAnswered() {
-    questionsAnswered.value = answers.length == questions.length;
-  }
-
   @override
   void onInit() {
     super.onInit();
-    _loadQuestions();
   }
-
-  Future<void> _loadQuestions() async {
-    final fetchedQuestions = await _questionController.fetch();
-    questions.value = fetchedQuestions;
+  
+  Future<List<Question>> loadQuestions() async {
+    final questions = await _questionController.fetch();
+    return questions;
   }
 }

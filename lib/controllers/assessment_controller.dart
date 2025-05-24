@@ -1,10 +1,10 @@
-import 'package:sismoney/models/contracts/autenticatable.dart';
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/services/contracts/assessment_service.dart';
 
 class AssessmentController {
   final AssessmentService _assessmentService;
-  final Autenticatable _user;
+  final Authenticatable _user;
 
   AssessmentController(this._assessmentService, this._user);
 

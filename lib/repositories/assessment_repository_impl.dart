@@ -1,11 +1,11 @@
-import 'package:sismoney/models/contracts/autenticatable.dart';
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/repositories/contracts/assessment_repository.dart';
 
 class AssessmentRepositoryImpl implements AssessmentRepository {
 
   @override
-  Stream<List<Assessment>> getAllAssessmentsByUser(Autenticatable user) async* {
+  Stream<List<Assessment>> getAllAssessmentsByUser(Authenticatable user) async* {
     final result = await usersRef.whereEmail(isEqualTo: user.email).get();
     final userId = result.docs.first.id;
 
@@ -14,7 +14,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
   
   @override
-  Future<Assessment> createAssessment(Autenticatable user, Assessment assessment) async {
+  Future<Assessment> createAssessment(Authenticatable user, Assessment assessment) async {
     final result = await usersRef.whereEmail(isEqualTo: user.email).get();
     final userId = result.docs.first.id;
 

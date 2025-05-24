@@ -1,7 +1,7 @@
-import 'package:sismoney/models/contracts/autenticatable.dart';
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 
 abstract class AssessmentService {
-  Stream<List<Assessment>> getAssessments(Autenticatable user);
-  Future<Assessment> createAssessment(Autenticatable user, Assessment assessment);
+  Stream<List<Assessment>> getAssessments(Authenticatable user);
+  Future<Assessment> createAssessment(Authenticatable user, Assessment assessment);
 }

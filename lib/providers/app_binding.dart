@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sismoney/controllers/assessment_controller.dart';
 import 'package:sismoney/controllers/question_controller.dart';
-import 'package:sismoney/models/contracts/autenticatable.dart';
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/repositories/assessment_repository_impl.dart';
 import 'package:sismoney/repositories/contracts/assessment_repository.dart';
@@ -16,7 +16,7 @@ class AppBinding extends Bindings {
   @override
   void dependencies() {
     /// Models
-    Get.lazyPut<Autenticatable>(() => User(name: 'Filipe', email: 'filipecovre224@gmail.com'));
+    Get.lazyPut<Authenticatable>(() => User(name: 'Filipe', email: 'filipecovre224@gmail.com'));
 
     ///  Repositories
     Get.lazyPut<QuestionRepository>(() => QuestionRepositoryImpl());
