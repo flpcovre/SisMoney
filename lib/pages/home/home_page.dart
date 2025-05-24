@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/skeletons/card_skeleton.dart';
 import 'package:sismoney/layouts/base_scaffold.dart';
+import 'package:sismoney/models/user.dart';
 import 'package:sismoney/pages/home/home_page_controller.dart';
+import 'package:sismoney/utils/formatters.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -43,12 +46,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildListView(context) {
+  Widget _buildListView(context, List<Assessment> assessments) {
     return Expanded(
       child: ListView.builder(
-        itemCount: controller.assessments.length,
+        itemCount: assessments.length,
         itemBuilder: (context, index) {
-          final assessment = controller.assessments[index];
+          final assessment = assessments[index];
 
           return InkWell(
             onTap: () {},
@@ -75,7 +78,7 @@ class HomePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${assessment.startDate} - ${assessment.endDate}',
+                            '${toDate(assessment.startDate)} - ${toDate(assessment.endDate)}',
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
@@ -84,9 +87,9 @@ class HomePage extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       '${assessment.percent}%',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleLarge?.copyWith(color: assessment.profit ? Colors.green : Colors.red),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: assessment.profit ? Colors.green : Colors.red,
+                      ),
                     ),
                     const SizedBox(width: 15),
                     const Icon(Icons.arrow_forward_ios, size: 16),
@@ -103,30 +106,45 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      body: Obx(() {
-        return controller.isEmpty.value
-            ? _buildEmptyHome()
-            : Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Suas Avaliações',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  SizedBox(height: 20),
+      body: StreamBuilder(
+        stream: controller.getAssessments(),
+        builder: (context, snapshot) {
+          final assessments = snapshot.data;
 
-                  _buildListView(context)
-                ],
-              ),
-            );
-      }),
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CardSkeleton();
+          }
+
+          if (snapshot.hasError) {
+            return Center(child: Text('Erro: ${snapshot.error}'));
+          }
+
+          if (assessments == null || assessments.isEmpty) {
+            return _buildEmptyHome();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Suas Avaliações',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(height: 20),
+
+                _buildListView(context, assessments),
+              ],
+            ),
+          );
+        },
+      ),
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0XFF94B9FF),
         onPressed: () {
-          controller.isEmpty.value = !controller.isEmpty.value;
+          controller.addAssessment();
         },
         shape: const CircleBorder(),
         child: const Icon(Icons.add, color: Colors.white, size: 28),
