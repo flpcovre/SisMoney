@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sismoney/routes/router_app.dart';
 
 class BaseDrawerNavigation extends StatelessWidget {
   const BaseDrawerNavigation({super.key});
@@ -10,7 +12,9 @@ class BaseDrawerNavigation extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.home_outlined),
           title: const Text('Home'),
-          onTap: () {},
+          onTap: () {
+            Get.toNamed(RouterApp.home);
+          },
         ),
         ListTile(
           leading: const Icon(Icons.person_2_outlined),

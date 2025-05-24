@@ -18,7 +18,7 @@ class BaseScaffold extends StatelessWidget {
       appBar: BaseAppBar(), 
       drawer: BaseDrawer(), 
       body: body,
-      floatingActionButton: floatingActionButton,
+      floatingActionButton: floatingActionButton
     );
   }
 }

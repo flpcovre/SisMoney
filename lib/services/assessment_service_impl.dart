@@ -9,7 +9,7 @@ class AssessmentServiceImpl implements AssessmentService {
   AssessmentServiceImpl(this._assessmentRepository);
 
   @override
-  Stream<List<Assessment>> getAssessments(Authenticatable user) {
+  Stream<List<AssessmentQueryDocumentSnapshot>> getAssessments(Authenticatable user) {
     return _assessmentRepository.getAllAssessmentsByUser(user);
   }
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/header_card.dart';
 import 'package:sismoney/components/skeletons/card_skeleton.dart';
 import 'package:sismoney/layouts/base_scaffold.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/pages/home/home_page_controller.dart';
+import 'package:sismoney/routes/router_app.dart';
 import 'package:sismoney/utils/formatters.dart';
 
 class HomePage extends StatelessWidget {
@@ -46,15 +48,18 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildListView(context, List<Assessment> assessments) {
+  Widget _buildListView(context, List<AssessmentQueryDocumentSnapshot> assessmentDocs) {
     return Expanded(
       child: ListView.builder(
-        itemCount: assessments.length,
+        itemCount: assessmentDocs.length,
         itemBuilder: (context, index) {
-          final assessment = assessments[index];
+          final assessmentSnapshot = assessmentDocs[index];
+          final assessment = assessmentSnapshot.data;
 
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(RouterApp.income, arguments: assessmentSnapshot);
+            },
             borderRadius: BorderRadius.circular(16),
             child: Card(
               elevation: 3,
@@ -62,7 +67,7 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
                     Icon(Icons.bar_chart, size: 36, color: Colors.blueAccent),
@@ -72,13 +77,15 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Avaliação ${assessment.id}',
+                            '${numberToMonth(assessment.month)} de ${assessment.year}',
                             style: Theme.of(context).textTheme.titleMedium
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${toDate(assessment.startDate)} - ${toDate(assessment.endDate)}',
+                            assessment.inProgress
+                                ? 'Em Andamento'
+                                : 'Finalizado',
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
@@ -86,10 +93,10 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${assessment.percent}%',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: assessment.profit ? Colors.green : Colors.red,
-                      ),
+                      '80%',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleLarge?.copyWith(color: Colors.green),
                     ),
                     const SizedBox(width: 15),
                     const Icon(Icons.arrow_forward_ios, size: 16),
@@ -128,12 +135,11 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Suas Avaliações',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                HeaderCard(
+                  text: 'Suas Avaliações',
+                  icon: Icons.star_rate_rounded,
                 ),
-                SizedBox(height: 20),
-
+                SizedBox(height: 15),
                 _buildListView(context, assessments),
               ],
             ),
