@@ -1,4 +1,4 @@
-import 'package:sismoney/integrations/Google/auth/contracts/authentication.dart';
+import 'package:sismoney/integrations/google/auth/contracts/authentication.dart';
 
 class FirebaseAuth implements Authentication {
   @override
