@@ -45,6 +45,8 @@ flutter:
     - lib/assets/img/circle-avatar.png
     - lib/assets/img/empty-box.png
     - lib/assets/img/empty-wallet.png
+    - lib/assets/img/wallet.png
+    - lib/assets/img/dollar.png
 
   fonts:
     - family: JetBrains Mono

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sismoney/components/app_icon.dart';
+import 'package:sismoney/components/base_floating_action_button.dart';
+import 'package:sismoney/layouts/base_scaffold/base_bottom_app_bar.dart';
 
-class SliverScaffold extends StatelessWidget {
+class BaseScaffold extends StatelessWidget {
   final List<Widget> slivers;
 
-  const SliverScaffold({super.key, required this.slivers});
+  const BaseScaffold({super.key, required this.slivers});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,7 @@ class SliverScaffold extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
-                    mainAxisAlignment:
-                        MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 16),
@@ -57,10 +58,7 @@ class SliverScaffold extends StatelessWidget {
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: AppIcon(
-                              width: 48,
-                              heigth: 48,
-                            ),
+                            child: AppIcon(width: 48, heigth: 48),
                           ),
                         ],
                       ),
@@ -128,30 +126,8 @@ class SliverScaffold extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white70,
-        onPressed: () {},
-        shape: const CircleBorder(),
-        child: const Icon(Icons.add, color: Colors.black, size: 28),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 7,
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.home)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.wallet)),
-
-            SizedBox(width: 40),
-
-            IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
-          ],
-        ),
-      ),
+      floatingActionButton: BaseFloatingActionButton(),
+      bottomNavigationBar: BaseBottomAppBar(),
     );
   }
 }

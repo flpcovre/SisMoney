@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sismoney/layouts/sliver_scaffold.dart';
+import 'package:sismoney/layouts/base_scaffold/base_scaffold.dart' show BaseScaffold;
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/pages/home/home_page_controller.dart';
 import 'package:sismoney/routes/router_app.dart';
@@ -67,7 +67,7 @@ class TestHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverScaffold(
+    return BaseScaffold(
       slivers: [
         StreamBuilder(
           stream: controller.getAssessments(),
