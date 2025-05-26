@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sismoney/layouts/sliver_scaffold.dart';
+import 'package:sismoney/models/user.dart';
+import 'package:sismoney/pages/home/home_page_controller.dart';
+import 'package:sismoney/routes/router_app.dart';
+import 'package:sismoney/utils/formatters.dart';
+
+class TestHomePage extends StatelessWidget {
+  TestHomePage({super.key});
+
+  final HomePageController controller = Get.put(HomePageController());
+
+  Widget _buildListItem(
+    BuildContext context,
+    AssessmentQueryDocumentSnapshot snapshot,
+  ) {
+    final assessment = snapshot.data;
+
+    return InkWell(
+      onTap: () {
+        Get.toNamed(RouterApp.income, arguments: snapshot);
+      },
+      borderRadius: BorderRadius.circular(16),
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Icon(Icons.bar_chart, size: 36, color: Colors.blueAccent),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${numberToMonth(assessment.month)} de ${assessment.year}',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      assessment.inProgress ? 'Em Andamento' : 'Finalizado',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '80%',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.green),
+              ),
+              const SizedBox(width: 15),
+              const Icon(Icons.arrow_forward_ios, size: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverScaffold(
+      slivers: [
+        StreamBuilder(
+          stream: controller.getAssessments(),
+          builder: (context, snapshot) {
+            final assessments = snapshot.data;
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              );
+            }
+
+            if (snapshot.hasError) {
+              return SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text('Erro: ${snapshot.error}'),
+                ),
+              );
+            }
+
+            if (assessments == null || assessments.isEmpty) {
+              return const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text('Nada aqui'),
+                ),
+              );
+            }
+
+            return SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final snapshot = assessments[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 3,
+                  ),
+                  child: _buildListItem(context, snapshot),
+                );
+              }, childCount: assessments.length),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
