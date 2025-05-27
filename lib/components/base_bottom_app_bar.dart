@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BaseBottomAppBar extends StatelessWidget {
   const BaseBottomAppBar({super.key});
@@ -13,7 +14,7 @@ class BaseBottomAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
         children: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+          IconButton(onPressed: () { Get.back(); }, icon: Icon(Icons.home)),
           IconButton(onPressed: () {}, icon: Icon(Icons.wallet)),
 
           SizedBox(width: 40),

@@ -7,7 +7,7 @@ class IncomePageController extends GetxController {
 
   Future<void> addIncome(AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
     final income = Income(
-      day: 24,
+      day: 22,
       description: 'Lanche',
       type: 'expense',
       cast: 15,

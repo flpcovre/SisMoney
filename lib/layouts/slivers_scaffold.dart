@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:sismoney/components/app_icon.dart';
 import 'package:sismoney/components/base_floating_action_button.dart';
-import 'package:sismoney/layouts/base_scaffold/base_bottom_app_bar.dart';
+import 'package:sismoney/components/base_bottom_app_bar.dart';
 
-class BaseScaffold extends StatelessWidget {
+class SliversScaffold extends StatelessWidget {
   final List<Widget> slivers;
+  final Widget title;
+  final VoidCallback? floatingActionButtonOnPressed;
 
-  const BaseScaffold({super.key, required this.slivers});
+  const SliversScaffold({
+    super.key, 
+    required this.slivers, 
+    required this.title,
+    this.floatingActionButtonOnPressed, 
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Colors.blue[100],
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             floating: true,
             pinned: false,
             backgroundColor: Colors.blue[300],
@@ -102,6 +111,7 @@ class BaseScaffold extends StatelessWidget {
           ),
 
           SliverAppBar(
+            automaticallyImplyLeading: false,
             floating: false,
             pinned: true,
             backgroundColor: Colors.blue[300],
@@ -109,14 +119,7 @@ class BaseScaffold extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               centerTitle: false,
-              title: Text(
-                'Suas Avaliações',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.grey[200],
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              title: title
             ),
           ),
 
@@ -126,7 +129,9 @@ class BaseScaffold extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: BaseFloatingActionButton(),
+      floatingActionButton: BaseFloatingActionButton(
+        onPressed: floatingActionButtonOnPressed
+      ),
       bottomNavigationBar: BaseBottomAppBar(),
     );
   }
