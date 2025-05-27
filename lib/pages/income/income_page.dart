@@ -8,10 +8,14 @@ import 'package:sismoney/models/user.dart';
 import 'package:sismoney/pages/income/income_page_controller.dart';
 
 class IncomePage extends StatelessWidget {
-  IncomePage({super.key});
-
   final IncomePageController controller = Get.put(IncomePageController());
-  final AssessmentQueryDocumentSnapshot assessmentSnapshot = Get.arguments;
+
+  final AssessmentQueryDocumentSnapshot assessmentSnapshot;
+  final String title;
+
+  IncomePage({super.key})
+    : assessmentSnapshot = (Get.arguments as Map<String, dynamic>)['snapshot'],
+      title = (Get.arguments as Map<String, dynamic>)['title'];
 
   Widget _buildEmptyIncomes() {
     return Column(
@@ -90,13 +94,75 @@ class IncomePage extends StatelessWidget {
     );
   }
 
+  void _buildModalBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SizedBox.expand(
+          child: Container(
+            color: Colors.blue[200],
+            child: Column(
+              children: [
+                Container(height: 150, color: Colors.red[200]),
+
+                const SizedBox(height: 4),
+
+                ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Descrição',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          Icon(Icons.description, color: Colors.grey[200], size: 25),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Adicione uma descrição',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey[200],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: const Color.fromARGB(92, 255, 255, 255),
+                ),
+                SizedBox(height: 4),
+
+                
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliversScaffold(
-      title: HeaderCard(
-        text: 'Junho de 2025',
-        icon: Icons.calendar_month,
-      ),
+      title: HeaderCard(text: title, icon: Icons.calendar_month),
       slivers: [
         StreamBuilder(
           stream: controller.fetchIncomes(assessmentSnapshot),
@@ -131,9 +197,8 @@ class IncomePage extends StatelessWidget {
               (Income income) => income.day,
             );
             final sortedDays =
-                incomesGroupedByDay.keys.toList()..sort(
-                  (a, b) => b.compareTo(a),
-                ); // do mais recente pro mais antigo
+                incomesGroupedByDay.keys.toList()
+                  ..sort((a, b) => b.compareTo(a));
 
             return SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
@@ -141,9 +206,7 @@ class IncomePage extends StatelessWidget {
                 final incomesOfDay = incomesGroupedByDay[day]!;
 
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: _buildListItem(context, incomesOfDay),
                 );
               }, childCount: sortedDays.length),
@@ -152,7 +215,8 @@ class IncomePage extends StatelessWidget {
         ),
       ],
       floatingActionButtonOnPressed: () {
-        controller.addIncome(assessmentSnapshot);
+        // controller.addIncome(assessmentSnapshot);
+        _buildModalBottomSheet(context);
       },
     );
   }

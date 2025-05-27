@@ -54,7 +54,13 @@ class HomePage extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Get.toNamed(RouterApp.income, arguments: snapshot);
+        Get.toNamed(
+          RouterApp.income,
+          arguments: {
+            'snapshot': snapshot,
+            'title': '${numberToMonth(assessment.month)} de ${assessment.year}',
+          },
+        );
       },
       borderRadius: BorderRadius.circular(16),
       child: Card(
@@ -104,7 +110,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliversScaffold(
       title: HeaderCard(
-        text: 'Avaliações', 
+        text: 'Suas Avaliações', 
         icon: Icons.star
       ),
       slivers: [
