@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/components/header_card.dart';
+import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_bottom_sheet.dart';
 import 'package:sismoney/components/skeletons/card_skeleton.dart';
 import 'package:sismoney/layouts/slivers_scaffold.dart';
 import 'package:sismoney/models/user.dart';
@@ -109,10 +110,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliversScaffold(
-      title: HeaderCard(
-        text: 'Suas Avaliações', 
-        icon: Icons.star
-      ),
+      title: HeaderCard(text: 'Suas Avaliações', icon: Icons.star),
       slivers: [
         StreamBuilder(
           stream: controller.getAssessments(),
@@ -157,7 +155,8 @@ class HomePage extends StatelessWidget {
         ),
       ],
       floatingActionButtonOnPressed: () {
-        controller.addAssessment();
+        // controller.addAssessment();
+        IncomeModalBottomSheet.show(context);
       },
     );
   }

@@ -27,6 +27,7 @@ dependencies:
   collection: ^1.19.1
   calendar_date_picker2: ^2.0.1
   dropdown_button2: ^2.3.9
+  another_flushbar: ^1.12.30
 
 dev_dependencies:
   flutter_test:
