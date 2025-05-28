@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/components/header_card.dart';
+import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_bottom_sheet.dart';
 import 'package:sismoney/components/skeletons/card_skeleton.dart';
 import 'package:sismoney/layouts/slivers_scaffold.dart';
 import 'package:sismoney/models/user.dart';
@@ -94,71 +95,6 @@ class IncomePage extends StatelessWidget {
     );
   }
 
-  void _buildModalBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SizedBox.expand(
-          child: Container(
-            color: Colors.blue[200],
-            child: Column(
-              children: [
-                Container(height: 150, color: Colors.red[200]),
-
-                const SizedBox(height: 4),
-
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Descrição',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Icon(Icons.description, color: Colors.grey[200], size: 25),
-                          const SizedBox(width: 14),
-                          Expanded(
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Adicione uma descrição',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: const Color.fromARGB(92, 255, 255, 255),
-                ),
-                SizedBox(height: 4),
-
-                
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SliversScaffold(
@@ -216,7 +152,7 @@ class IncomePage extends StatelessWidget {
       ],
       floatingActionButtonOnPressed: () {
         // controller.addIncome(assessmentSnapshot);
-        _buildModalBottomSheet(context);
+        IncomeModalBottomSheet.show(context);
       },
     );
   }
