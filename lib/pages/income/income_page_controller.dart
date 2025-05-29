@@ -13,7 +13,7 @@ class IncomePageController extends GetxController {
       cast: 15,
     );
 
-    await _incomeController.store(income, assessmentSnapshot);
+    // await _incomeController.store(income, assessmentSnapshot);
   }
 
   Stream<List<IncomeQueryDocumentSnapshot>> fetchIncomes(AssessmentQueryDocumentSnapshot assessmentSnapshot) {

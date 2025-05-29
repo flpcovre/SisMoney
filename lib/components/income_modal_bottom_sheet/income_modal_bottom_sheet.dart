@@ -7,7 +7,7 @@ import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_botto
 import 'package:sismoney/utils/formatters.dart';
 
 class IncomeModalBottomSheet {
-  static Future show(BuildContext context) async {
+  static Future show(BuildContext context, ) async {
     final List<String> dropdownItems = ['Despesa', 'Receita'];
 
     final controller = Get.put(IncomeModalBottomSheetController());
@@ -16,6 +16,9 @@ class IncomeModalBottomSheet {
     controller.selectedDate.value = DateTime.now().toUtc().subtract(
       Duration(hours: 3),
     );
+    controller.formError.value = '';
+    controller.amountController.text = '';
+    controller.descriptionController.text = '';
 
     Widget buildInputField({
       required String label,
@@ -127,13 +130,25 @@ class IncomeModalBottomSheet {
                     ],
                   ),
                 ),
-            
+
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(color: Colors.blue[300]),
                     child: Column(
                       children: [
                         const SizedBox(height: 18),
+                        Obx(() {
+                          if (controller.formError.value.isEmpty) {
+                            return SizedBox.shrink(); // ou return Container();
+                          }
+                          return Center(
+                            child: Text(
+                              controller.formError.value,
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          );
+                        }),
+
                         buildInputField(
                           label: 'Descrição',
                           icon: Icons.description,
@@ -162,22 +177,16 @@ class IncomeModalBottomSheet {
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Colors.white38,
-                        ),
+                        Divider(height: 1, thickness: 1, color: Colors.white38),
                         buildInputField(
                           label: 'Data',
                           icon: Icons.calendar_month,
                           inputWidget: Obx(() {
                             final DateTime? date =
                                 controller.selectedDate.value;
-            
+
                             return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8,
-                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Text(
                                 date != null
                                     ? toDate(date)
@@ -204,18 +213,14 @@ class IncomeModalBottomSheet {
                                           : [controller.selectedDate.value],
                                   borderRadius: BorderRadius.circular(15),
                                 );
-            
+
                             if (selectedDates != null &&
                                 selectedDates.isNotEmpty) {
                               controller.setDate(selectedDates[0]);
                             }
                           },
                         ),
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Colors.white38,
-                        ),
+                        Divider(height: 1, thickness: 1, color: Colors.white38),
                         buildInputField(
                           label: 'Tipo',
                           icon: Icons.money,
@@ -233,8 +238,7 @@ class IncomeModalBottomSheet {
                                                   item,
                                                   style: TextStyle(
                                                     color: Colors.grey[200],
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                     fontSize: 17,
                                                   ),
                                                 ),
@@ -255,14 +259,10 @@ class IncomeModalBottomSheet {
                             ),
                           ),
                         ),
-            
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Colors.white38,
-                        ),
+
+                        Divider(height: 1, thickness: 1, color: Colors.white38),
                         Spacer(),
-            
+
                         SizedBox(
                           width: 70,
                           height: 70,
@@ -285,48 +285,48 @@ class IncomeModalBottomSheet {
                                 size: 32,
                               ),
                               onPressed: () {
-                                controller.submitForm();
-            
-                                Navigator.pop(context);
-            
-                                Flushbar(
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 18,
-                                    horizontal: 12,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                  icon: Container(
-                                    width: 26,
-                                    height: 26,
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
+                                if (controller.submitForm()) {
+                                  Navigator.pop(context);
+
+                                  Flushbar(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 18,
+                                      horizontal: 12,
                                     ),
-                                    child: Icon(
-                                      Icons.check,
-                                      color: Colors.green,
-                                      size: 20,
+                                    borderRadius: BorderRadius.circular(12),
+                                    icon: Container(
+                                      width: 26,
+                                      height: 26,
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.check,
+                                        color: Colors.green,
+                                        size: 20,
+                                      ),
                                     ),
-                                  ),
-                                  message:
-                                      'Lançamento adicionado com sucesso',
-                                  messageSize: 15,
-                                  messageColor: Colors.black,
-                                  backgroundColor: const Color.fromARGB(
-                                    255,
-                                    115,
-                                    241,
-                                    120,
-                                  ),
-                                  isDismissible: false,
-                                  duration: Duration(seconds: 2),
-                                ).show(context);
+                                    message:
+                                        'Lançamento adicionado com sucesso',
+                                    messageSize: 15,
+                                    messageColor: Colors.black,
+                                    backgroundColor: const Color.fromARGB(
+                                      255,
+                                      115,
+                                      241,
+                                      120,
+                                    ),
+                                    isDismissible: false,
+                                    duration: Duration(seconds: 2),
+                                  ).show(context);
+                                }
                               },
                             ),
                           ),
                         ),
-            
+
                         SizedBox(height: 48),
                       ],
                     ),

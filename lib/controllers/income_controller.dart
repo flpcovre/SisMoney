@@ -6,9 +6,9 @@ class IncomeController {
 
   IncomeController(this._incomeService);
 
-  Future<void> store(Income income, AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
+  Future<void> store(Income income) async {
     try {
-      await _incomeService.createIncome(income, assessmentSnapshot);
+      await _incomeService.createIncome(income);
     } catch (e) {
       rethrow;
     }

@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/controllers/income_controller.dart';
+import 'package:sismoney/models/user.dart';
 
 class IncomeModalBottomSheetController extends GetxController {
   Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   RxString selectedValue = 'Despesa'.obs;
+  RxString formError = ''.obs;
 
   final TextEditingController amountController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final IncomeController _incomeController = Get.find<IncomeController>();
 
   void setDate(DateTime? date) {
     selectedDate.value = date;
   }
 
+  bool validateTextFormFields(String value) {
+    if (value.trim() == '') {
+      formError.value = 'Você precisa preencher os campos corretamente';
+      return false;
+    }
+    formError.value = '';
+    return true;
+  }
+
   bool submitForm() {
-    print('Amount: ${amountController.text}');
-    print('Description: ${descriptionController.text}');
-    print('Date: ${selectedDate.value}');
-    print('Type: ${selectedValue.value}');
+    if (
+      !validateTextFormFields(amountController.text) &&
+      !validateTextFormFields(descriptionController.text)
+    ) {
+      return false;
+    }
+
+    final income = Income(
+      day: selectedDate.value!.day, 
+      description: descriptionController.text, 
+      type: selectedValue.value, 
+      cast: double.parse(amountController.text)
+    );
 
     return true;
   }

@@ -8,8 +8,8 @@ class IncomeServiceImpl implements IncomeService {
   IncomeServiceImpl(this._incomeRepository);
 
   @override
-  Future<void> createIncome(Income income, AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
-    await _incomeRepository.createIncomeByAssessment(income, assessmentSnapshot);
+  Future<void> createIncome(Income income) async {
+    // await _incomeRepository.createIncomeByAssessment(income);
   }
   
   @override
