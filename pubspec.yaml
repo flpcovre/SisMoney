@@ -24,6 +24,8 @@ dependencies:
   json_annotation: ^4.9.0
   skeletonizer: ^1.4.3
   intl: ^0.20.2
+  firebase_auth: ^5.5.4
+  google_sign_in: ^6.3.0
 
 dev_dependencies:
   flutter_test:
