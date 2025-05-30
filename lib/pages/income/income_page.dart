@@ -79,7 +79,7 @@ class IncomePage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 15,
                         color:
-                            income.type == 'revenue'
+                            income.type == 'profit'
                                 ? Colors.green
                                 : Colors.red,
                       ),
@@ -151,7 +151,6 @@ class IncomePage extends StatelessWidget {
         ),
       ],
       floatingActionButtonOnPressed: () {
-        // controller.addIncome(assessmentSnapshot);
         IncomeModalBottomSheet.show(context);
       },
     );

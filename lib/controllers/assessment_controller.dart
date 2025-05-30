@@ -12,8 +12,4 @@ class AssessmentController {
     final assessments = _assessmentService.getAssessments(_user);
     return assessments;
   }
-
-  Future<void> store(Assessment assessment) async {
-    _assessmentService.createAssessment(_user, assessment);
-  }
 }

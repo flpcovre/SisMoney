@@ -25,7 +25,7 @@ class IncomeModalBottomSheetController extends GetxController {
     return true;
   }
 
-  bool submitForm() {
+  Future<bool> submitForm() async {
     if (
       !validateTextFormFields(amountController.text) &&
       !validateTextFormFields(descriptionController.text)
@@ -36,9 +36,11 @@ class IncomeModalBottomSheetController extends GetxController {
     final income = Income(
       day: selectedDate.value!.day, 
       description: descriptionController.text, 
-      type: selectedValue.value, 
+      type: selectedValue.value == 'Despesa' ? 'expense' : 'profit', 
       cast: double.parse(amountController.text)
     );
+
+    await _incomeController.store(income, selectedDate.value!);
 
     return true;
   }

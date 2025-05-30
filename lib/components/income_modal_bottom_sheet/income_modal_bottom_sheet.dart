@@ -1,8 +1,8 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/base_flushbar.dart';
 import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_bottom_sheet_controller.dart';
 import 'package:sismoney/utils/formatters.dart';
 
@@ -284,43 +284,25 @@ class IncomeModalBottomSheet {
                                 color: Colors.white,
                                 size: 32,
                               ),
-                              onPressed: () {
-                                if (controller.submitForm()) {
-                                  Navigator.pop(context);
+                              onPressed: () async {
+                                try {
+                                  if (await controller.submitForm()) {
+                                    Navigator.pop(context);
 
-                                  Flushbar(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 18,
-                                      horizontal: 12,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                    icon: Container(
-                                      width: 26,
-                                      height: 26,
-                                      padding: EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.check,
-                                        color: Colors.green,
-                                        size: 20,
-                                      ),
-                                    ),
-                                    message:
-                                        'Lançamento adicionado com sucesso',
-                                    messageSize: 15,
-                                    messageColor: Colors.black,
-                                    backgroundColor: const Color.fromARGB(
-                                      255,
-                                      115,
-                                      241,
-                                      120,
-                                    ),
-                                    isDismissible: false,
-                                    duration: Duration(seconds: 2),
-                                  ).show(context);
+                                    BaseFlushBar.show(
+                                      context,
+                                      message: 'Lançamento adicionado com sucesso',
+                                      type: 'success',
+                                      isDismissible: true
+                                    );
+                                  }
+                                } catch (e) {
+                                    BaseFlushBar.show(
+                                      context,
+                                      message: '$e',
+                                      type: 'error',
+                                      isDismissible: true
+                                    );
                                 }
                               },
                             ),

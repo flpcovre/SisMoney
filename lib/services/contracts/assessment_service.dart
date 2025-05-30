@@ -3,5 +3,5 @@ import 'package:sismoney/models/user.dart';
 
 abstract class AssessmentService {
   Stream<List<AssessmentQueryDocumentSnapshot>> getAssessments(Authenticatable user);
-  Future<Assessment> createAssessment(Authenticatable user, Assessment assessment);
+  Future<AssessmentQueryDocumentSnapshot> ensureAssessmentByMonthYear(Authenticatable user, DateTime date);
 }

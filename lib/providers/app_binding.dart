@@ -33,11 +33,11 @@ class AppBinding extends Bindings {
     /// Services
     Get.lazyPut<QuestionService>(() => QuestionServiceImpl(Get.find()));
     Get.lazyPut<AssessmentService>(() => AssessmentServiceImpl(Get.find()));
-    Get.lazyPut<IncomeService>(() => IncomeServiceImpl(Get.find()));
+    Get.lazyPut<IncomeService>(() => IncomeServiceImpl(Get.find(), Get.find()));
 
     /// Controllers
     Get.put(QuestionController(Get.find()));
     Get.put(AssessmentController(Get.find(), Get.find()));
-    Get.put(IncomeController(Get.find()));
+    Get.put(IncomeController(Get.find(), Get.find()));
   }
 }

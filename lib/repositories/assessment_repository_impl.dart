@@ -28,4 +28,27 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
 
     return assessment;
   }
+  
+  @override
+  Future<AssessmentQueryDocumentSnapshot?> getOneAsssessmentByMonthYear(
+    Authenticatable user, 
+    DateTime date
+  ) async {
+    final result = await usersRef.whereEmail(isEqualTo: user.email).get();
+    final userId = result.docs.first.id;
+
+    final snapshot = await usersRef
+      .doc(userId)
+      .assessments
+      .whereMonth(isEqualTo: date.month)
+      .whereYear(isEqualTo: date.year)
+      .get();
+
+    return snapshot.docs.isEmpty ? null : snapshot.docs.first;
+  }
+  
+  @override
+  Future<AssessmentQueryDocumentSnapshot?> getOneAssessmentInProgress(Authenticatable user) async {
+    return null;
+  }
 }
