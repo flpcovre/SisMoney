@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:sismoney/integrations/google/auth/auth_result.dart';
 import 'package:sismoney/integrations/google/auth/contracts/authentication.dart';
 import 'package:sismoney/repositories/contracts/user_repository.dart';
@@ -81,5 +82,22 @@ class AppFirebaseAuth implements Authentication {
           return AuthFailure('An unexpected error occurred.');
       }
     }
+  }
+
+  @override
+  void signOut() {
+    _auth.signOut();
+  }
+
+  @override
+  user.User? getUser() {
+    final firebaseUser = _auth.currentUser;
+    if (firebaseUser != null) {
+      return user.User(
+        name: firebaseUser.displayName ?? '',
+        email: firebaseUser.email ?? '',
+      );
+    }
+    return null;
   }
 }

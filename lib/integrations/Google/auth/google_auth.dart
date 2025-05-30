@@ -65,4 +65,22 @@ class GoogleAuth implements ExternalProviderAuthentication{
       }
     }
   }
+
+  @override
+  void signOut() {
+    _googleSignIn.signOut();
+    _firebaseAuth.signOut();
+  }
+
+  @override
+  user.User? getUser() {
+    final googleUser = _googleSignIn.currentUser;
+    if (googleUser != null) {
+      return user.User(
+        email: googleUser.email,
+        name: googleUser.displayName ?? '',
+      );
+    }
+    return null;
+  }
 }

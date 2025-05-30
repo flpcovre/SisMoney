@@ -50,4 +50,19 @@ class AuthController {
     } 
     return 'An unexpected error ocurred';
   }
+
+  void signOut() {
+    _authServiceFirebase.signOut();
+    _authServiceGoogle.signOut();
+  }
+
+  User? isUserLoggedIn() {
+    final firebaseUser = _authServiceFirebase.getUser();
+    if (firebaseUser != null) return firebaseUser;
+
+    final googleUser = _authServiceGoogle.getUser();
+    if (googleUser != null) return googleUser;
+
+    return null;
+  }
 }
