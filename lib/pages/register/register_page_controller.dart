@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/controllers/auth_controller.dart';
-import 'package:sismoney/integrations/google/auth/firebase_auth.dart';
 import 'package:sismoney/routes/router_app.dart';
 
 class RegisterPageController extends GetxController {

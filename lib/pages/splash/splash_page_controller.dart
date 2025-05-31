@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/controllers/auth_controller.dart';
+import 'package:sismoney/providers/authenticated_bindings.dart';
 import 'package:sismoney/routes/router_app.dart';
 
-class SplashPageController extends GetxController with GetTickerProviderStateMixin {
+class SplashPageController extends GetxController
+    with GetTickerProviderStateMixin {
   late final AnimationController imageController;
   late final Animation<double> imageScale;
 
@@ -66,12 +68,16 @@ class SplashPageController extends GetxController with GetTickerProviderStateMix
   }
 
   Future<void> _simulateAuth() async {
-    if (_authController.isUserLoggedIn() == null) {
+    final user = _authController.isUserLoggedIn();
+
+    if (user != null) {
+      AuthenticatedBindings(user).dependencies();
+
+      isUserAuthenticated = true;
+    } else {
       isUserAuthenticated = false;
     }
-    else {
-      isUserAuthenticated = true;
-    }
+
     _onAuthComplete();
   }
 
@@ -96,8 +102,7 @@ class SplashPageController extends GetxController with GetTickerProviderStateMix
     exitController.forward().whenComplete(() {
       if (isUserAuthenticated) {
         Get.toNamed(RouterApp.home);
-      }
-      else {
+      } else {
         Get.toNamed(RouterApp.login);
       }
     });

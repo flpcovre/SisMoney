@@ -1,9 +1,10 @@
-import 'package:get/get.dart';
 import 'package:sismoney/integrations/google/auth/auth_result.dart';
 import 'package:sismoney/integrations/google/auth/contracts/authentication.dart';
 import 'package:sismoney/integrations/google/auth/contracts/external_provider_authentication.dart';
-import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
+import 'package:sismoney/providers/authenticated_bindings.dart';
+
+import '../providers/app_binding.dart';
 
 class AuthController {
   final Authentication _authServiceFirebase;
@@ -16,7 +17,8 @@ class AuthController {
 
     if (result is AuthSuccess) {
       final user = result.data;
-      Get.put<Authenticatable>(user);
+      AppBinding().dependencies();
+      AuthenticatedBindings(user).dependencies();
       return null;
     }
     else if (result is AuthFailure) {
@@ -24,12 +26,14 @@ class AuthController {
     }
     return 'An unexpected error ocurred';
   }
+
   Future<String?> signInWithEmailAndPassword(String email, String password) async {
     final result = await _authServiceFirebase.signIn(email, password);
 
     if (result is AuthSuccess) {
       final user = result.data;
-      Get.put<Authenticatable>(user);
+      AppBinding().dependencies();
+      AuthenticatedBindings(user).dependencies();
       return null;
     }
     else if (result is AuthFailure) {
@@ -42,7 +46,8 @@ class AuthController {
     final result = await _authServiceGoogle.authenticate();
     if (result is AuthSuccess) {
       final user = result.data;
-      Get.put<Authenticatable>(user);
+      AppBinding().dependencies();
+      AuthenticatedBindings(user).dependencies();
       return null;
     }
     else if (result is AuthFailure) {
@@ -51,7 +56,7 @@ class AuthController {
     return 'An unexpected error ocurred';
   }
 
-  void signOut() {
+  Future<void> signOut() async {
     _authServiceFirebase.signOut();
     _authServiceGoogle.signOut();
   }

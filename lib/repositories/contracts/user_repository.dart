@@ -1,6 +1,7 @@
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 
 abstract class UserRepository {
-  Future<User> getUserByEmail(User user);
   Future<User> createUser(User user);
+  Future<User> getUserByEmail(Authenticatable user);
 }
