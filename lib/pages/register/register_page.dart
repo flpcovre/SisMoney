@@ -100,7 +100,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: controller.registerUserEmailPassword,
+                      onPressed: controller.signUpUserEmailPassword,
                       child: const Text(
                         'Registrar',
                         style: TextStyle(
@@ -124,7 +124,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: controller.registerUserGoogle,
+                      onPressed: controller.signUpGoogle,
                       icon: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),

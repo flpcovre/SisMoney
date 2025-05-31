@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:sismoney/firebase_options.dart';
 import 'package:sismoney/providers/app_binding.dart';
 import 'package:sismoney/routes/router_app.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform
-    );
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('pt_BR', null);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(const MyApp());
 }
 

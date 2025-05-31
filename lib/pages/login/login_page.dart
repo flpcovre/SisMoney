@@ -9,8 +9,6 @@ import 'package:sismoney/utils/validators.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  final controller = Get.put(LoginPageController());
-
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
@@ -27,6 +25,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginPageController());
+
     return GradientScaffold(
       body: Center(
         child: SingleChildScrollView(

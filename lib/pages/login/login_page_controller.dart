@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/controllers/auth_controller.dart';
 import 'package:sismoney/routes/router_app.dart';
 
 class LoginPageController extends GetxController {
@@ -7,6 +8,7 @@ class LoginPageController extends GetxController {
   final passwordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+  final _authController = Get.find<AuthController>();
 
   final formError = ''.obs;
 
@@ -19,37 +21,39 @@ class LoginPageController extends GetxController {
     formError.value = message;
   }
 
-  bool loginUserEmailPassword() {
+  void clearFormFields() {
+    emailController.clear();
+    passwordController.clear();
+    setFormError('');
+  }
+
+  Future<bool> loginUserEmailPassword() async {
     if (!validateForm()) return false;
 
-    const registeredEmail = 'admin@admin.com';
-    const registeredPassword = '123456';
-    if (emailController.text != registeredEmail ||
-        passwordController.text != registeredPassword) {
-      setFormError('Email ou senha incorretos');
+    final result = await _authController.signInWithEmailAndPassword(
+      emailController.text, 
+      passwordController.text,
+    );
+    
+    if (result is String) {
+      setFormError(result);
       return false;
     }
 
-    print('Logging in with Email and Password...');
-    print('Email: ${emailController.text}');
-    print('Password: ${passwordController.text}');
-
+    clearFormFields();
     Get.toNamed(RouterApp.home);
     return true;
   }
 
-  bool loginUserGoogle() {
-    if (!validateForm()) return false;
+  Future<bool> loginUserGoogle() async {
+    final result = await _authController.autheticateWithGoogle();
+    if (result is String) {
+      setFormError(result);
+      return false;
+    }
 
-    print('Loggin in with Google...');
-    print('Email: ${emailController.text}');
+    clearFormFields();
+    Get.toNamed(RouterApp.home);
     return true;
-  }
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
   }
 }

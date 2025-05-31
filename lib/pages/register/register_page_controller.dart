@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/controllers/auth_controller.dart';
+import 'package:sismoney/routes/router_app.dart';
 
 class RegisterPageController extends GetxController {
   final nameController = TextEditingController();
@@ -8,6 +11,7 @@ class RegisterPageController extends GetxController {
   final confirmPasswordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+  final _authController = Get.find<AuthController>();
 
   final formError = ''.obs;
 
@@ -20,27 +24,44 @@ class RegisterPageController extends GetxController {
     formError.value = message;
   }
 
-  bool registerUserEmailPassword() {
+  void clearFormFields() {
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    confirmPasswordController.clear();
+    setFormError('');
+  }
+
+  Future<bool> signUpUserEmailPassword() async {
     if (!validateForm()) return false;
     
-    const registeredEmail = 'user@email.com';
-    if (emailController.text == registeredEmail) {
-      setFormError('Email já cadastrado');
+    final result = await _authController.signUpWithEmailAndPassword(nameController.text, emailController.text, passwordController.text);
+    if (result is String) {
+      setFormError(result);
       return false;
     }
 
-    print('Registering with Email and Password...');
+    print('User signed up with Email and Password...');
     print('Name: ${nameController.text}');
     print('Email: ${emailController.text}');
     print('Password: ${passwordController.text}');
+
+    clearFormFields();
+    Get.toNamed(RouterApp.home);
     return true;
   }
 
-  bool registerUserGoogle() {
-    if (!validateForm()) return false;
+  Future<bool> signUpGoogle() async {
+    final result = await _authController.autheticateWithGoogle();
+    if (result is String) {
+      setFormError(result);
+      return false;
+    }
 
-    print('Registering with Google...');
+    print('Singing up with Google...');
     print('Email: ${emailController.text}');
+    clearFormFields();
+    Get.toNamed(RouterApp.home);
     return true;
   }
 
