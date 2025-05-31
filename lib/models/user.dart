@@ -11,6 +11,7 @@ part 'user.g.dart';
   createPerFieldToJson: true,
 )
 class User implements Authenticatable {
+  @override
   final String name;
   @override
   final String email;

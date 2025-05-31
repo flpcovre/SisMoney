@@ -1,21 +1,29 @@
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sismoney/controllers/assessment_controller.dart';
+import 'package:sismoney/controllers/auth_controller.dart';
 import 'package:sismoney/controllers/income_controller.dart';
 import 'package:sismoney/controllers/question_controller.dart';
+import 'package:sismoney/integrations/google/auth/contracts/authentication.dart';
+import 'package:sismoney/integrations/google/auth/contracts/external_provider_authentication.dart';
+import 'package:sismoney/integrations/google/auth/firebase_auth.dart';
+import 'package:sismoney/integrations/google/auth/google_auth.dart';
 import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/repositories/assessment_repository_impl.dart';
 import 'package:sismoney/repositories/contracts/assessment_repository.dart';
 import 'package:sismoney/repositories/contracts/income_repository.dart';
 import 'package:sismoney/repositories/contracts/question_repository.dart';
-import 'package:sismoney/repositories/income_repository_impl.dart';
 import 'package:sismoney/repositories/question_repository_impl.dart';
+import 'package:sismoney/repositories/user_repository_impl.dart';
 import 'package:sismoney/services/assessment_service_impl.dart';
 import 'package:sismoney/services/contracts/assessment_service.dart';
 import 'package:sismoney/services/contracts/income_service.dart';
 import 'package:sismoney/services/contracts/question_service.dart';
 import 'package:sismoney/services/income_service_impl.dart';
 import 'package:sismoney/services/question_service_impl.dart';
+import 'package:sismoney/repositories/contracts/user_repository.dart';
+import 'package:sismoney/repositories/income_repository_impl.dart';
 
 class AppBinding extends Bindings {
   @override
@@ -29,15 +37,19 @@ class AppBinding extends Bindings {
     Get.lazyPut<QuestionRepository>(() => QuestionRepositoryImpl());
     Get.lazyPut<AssessmentRepository>(() => AssessmentRepositoryImpl());
     Get.lazyPut<IncomeRepository>(() => IncomeRepositoryImpl());
+    Get.lazyPut<UserRepository>(() => UserRepositoryImpl());
 
     /// Services
     Get.lazyPut<QuestionService>(() => QuestionServiceImpl(Get.find()));
     Get.lazyPut<AssessmentService>(() => AssessmentServiceImpl(Get.find()));
     Get.lazyPut<IncomeService>(() => IncomeServiceImpl(Get.find(), Get.find()));
+    Get.lazyPut<ExternalProviderAuthentication>(() => GoogleAuth(Get.find()));
+    Get.lazyPut<Authentication>(() => AppFirebaseAuth(Get.find()));
 
     /// Controllers
     Get.put(QuestionController(Get.find()));
     Get.put(AssessmentController(Get.find(), Get.find()));
+    Get.put(AuthController(Get.find(), Get.find()));
     Get.put(IncomeController(Get.find(), Get.find()));
   }
 }
