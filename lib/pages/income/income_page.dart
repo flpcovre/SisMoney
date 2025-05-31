@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/components/base_dialog.dart';
+import 'package:sismoney/components/base_flushbar.dart';
 import 'package:sismoney/components/header_card.dart';
 import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_bottom_sheet.dart';
 import 'package:sismoney/components/skeletons/card_skeleton.dart';
@@ -97,6 +99,10 @@ class IncomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initialize(assessmentSnapshot.data.inProgress);
+    });
+
     return SliversScaffold(
       title: HeaderCard(text: title, icon: Icons.calendar_month),
       slivers: [
@@ -149,6 +155,59 @@ class IncomePage extends StatelessWidget {
             );
           },
         ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Obx(() => ElevatedButton(
+                onPressed: () async {
+                  if (controller.inProgress.value) {
+                    try {
+                      await BaseDialog.show(
+                        context,
+                        title: 'Atenção!',
+                        message: 'Você realmente deseja finalizar esse mês? Não será possível reabri-lo depois.',
+                        type: 'choice',
+                        icon: Icons.warning_amber_rounded,
+                        iconColor: Colors.orange,
+                        titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        messageStyle: TextStyle(fontSize: 16),
+                        onConfirm: () async {
+                          await controller.endAssessment(assessmentSnapshot);
+                        },
+                      );
+                    } catch (e) {
+                      BaseFlushBar.show(
+                        context,
+                        message: '$e', 
+                        type: 'error',
+                        isDismissible: true
+                      );
+                    }
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: controller.inProgress.value ? Colors.red[200] : Colors.green[300],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                child: Text(
+                  controller.inProgress.value ? 'Finalizar o Mês' : 'Este mês já foi finalizado',
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+            
+            )
+            
+            
+          ),
+        ),
+
+        SliverToBoxAdapter(
+          child: SizedBox(height: 28),
+        )
       ],
       floatingActionButtonOnPressed: () {
         IncomeModalBottomSheet.show(context);

@@ -20,4 +20,24 @@ class IncomeServiceImpl implements IncomeService {
   Stream<List<IncomeQueryDocumentSnapshot>> getAllIncomes(AssessmentQueryDocumentSnapshot assessmentSnapshot) {
     return _incomeRepository.getAllByAssessment(assessmentSnapshot);
   }
+  
+  @override
+  Future<double> calculateUserIncomeBalance(Authenticatable user) async {
+    final List<IncomeQueryDocumentSnapshot> incomes = await _incomeRepository.getAllByUser(user);
+
+    double total = 0.0;
+
+    for (final income in incomes) {
+      final cast = income.data.cast;
+      final type = income.data.type;
+
+      if (type == 'profit') {
+        total += cast;
+      } else if (type == 'expense') {
+        total -= cast;
+      }
+    }
+    
+    return total;
+  }
 }

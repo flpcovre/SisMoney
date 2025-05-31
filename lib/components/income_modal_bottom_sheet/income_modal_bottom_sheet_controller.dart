@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/controllers/income_controller.dart';
+import 'package:sismoney/layouts/slivers_scaffold.dart';
 import 'package:sismoney/models/user.dart';
 
 class IncomeModalBottomSheetController extends GetxController {
@@ -27,20 +28,23 @@ class IncomeModalBottomSheetController extends GetxController {
 
   Future<bool> submitForm() async {
     if (
-      !validateTextFormFields(amountController.text) &&
+      !validateTextFormFields(amountController.text) ||
       !validateTextFormFields(descriptionController.text)
     ) {
       return false;
     }
-
+    
     final income = Income(
       day: selectedDate.value!.day, 
       description: descriptionController.text, 
       type: selectedValue.value == 'Despesa' ? 'expense' : 'profit', 
-      cast: double.parse(amountController.text)
+      cast: double.parse(amountController.text.replaceAll(',', '.'))
     );
 
     await _incomeController.store(income, selectedDate.value!);
+
+    final sliversController = Get.find<SliversScaffoldController>();
+    sliversController.refreshBalance();
 
     return true;
   }

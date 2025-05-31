@@ -19,4 +19,12 @@ class IncomeController {
   Stream<List<IncomeQueryDocumentSnapshot>> getAll(AssessmentQueryDocumentSnapshot assessmentSnapshot) {
     return _incomeService.getAllIncomes(assessmentSnapshot);
   }
+
+  Future<double> getIncomeBalance() {
+    try {
+      return _incomeService.calculateUserIncomeBalance(_user);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

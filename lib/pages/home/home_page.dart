@@ -91,13 +91,6 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                '80%',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(color: Colors.green),
-              ),
               const SizedBox(width: 15),
               const Icon(Icons.arrow_forward_ios, size: 16),
             ],

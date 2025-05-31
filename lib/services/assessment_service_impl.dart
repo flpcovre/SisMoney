@@ -34,11 +34,15 @@ class AssessmentServiceImpl implements AssessmentService {
     }
 
     if (!assessmentSnapshot.data.inProgress) {
-      throw BaseException('Este mês já foi finalizado, não é mais possível realizar lançamentos nele.');
+      throw BaseException('Este mês já foi finalizado e não é mais possível realizar lançamentos nele.');
     }
 
     return assessmentSnapshot;
 
   }
-
+  
+  @override
+  Future<void> endAssessment(Authenticatable user, Assessment assessment) async {
+    await _assessmentRepository.endByMonthYear(user, assessment);
+  }
 }

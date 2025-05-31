@@ -30,18 +30,17 @@ class LoginPageController extends GetxController {
   Future<bool> loginUserEmailPassword() async {
     if (!validateForm()) return false;
 
-    final result = await _authController.signInWithEmailAndPassword(emailController.text, passwordController.text);
+    final result = await _authController.signInWithEmailAndPassword(
+      emailController.text, 
+      passwordController.text,
+    );
+    
     if (result is String) {
       setFormError(result);
       return false;
     }
 
-    print('Logging in with Email and Password...');
-    print('Email: ${emailController.text}');
-    print('Password: ${passwordController.text}');
-
     clearFormFields();
-
     Get.toNamed(RouterApp.home);
     return true;
   }
@@ -53,19 +52,8 @@ class LoginPageController extends GetxController {
       return false;
     }
 
-    print('Loggin in with Google...');
-    print('Email: ${emailController.text}');
-    
     clearFormFields();
-
     Get.toNamed(RouterApp.home);
     return true;
-  }
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
   }
 }

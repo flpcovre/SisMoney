@@ -1,3 +1,4 @@
+import 'package:sismoney/models/contracts/authenticatable.dart';
 import 'package:sismoney/models/user.dart';
 import 'package:sismoney/repositories/contracts/income_repository.dart';
 
@@ -18,5 +19,22 @@ class IncomeRepositoryImpl implements IncomeRepository {
             .orderByDay(descending: true)
             .snapshots()
             .map((snapshot) => snapshot.docs);
+  }
+
+  @override
+  Future<List<IncomeQueryDocumentSnapshot>> getAllByUser(Authenticatable user) async {
+    final result = await usersRef.whereEmail(isEqualTo: user.email).get();
+    final userId = result.docs.first.id;
+
+    final assessmentSnapshots = await usersRef.doc(userId).assessments.get();
+
+    final List<IncomeQueryDocumentSnapshot> allIncomes = [];
+
+    for (final assessment in assessmentSnapshots.docs) {
+      final incomesSnapshot = await assessment.reference.incomes.get();
+      allIncomes.addAll(incomesSnapshot.docs);
+    }
+
+    return allIncomes;
   }
 }

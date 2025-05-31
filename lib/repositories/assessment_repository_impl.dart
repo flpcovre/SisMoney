@@ -30,10 +30,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
   
   @override
-  Future<AssessmentQueryDocumentSnapshot?> getOneByMonthYear(
-    Authenticatable user, 
-    DateTime date
-  ) async {
+  Future<AssessmentQueryDocumentSnapshot?> getOneByMonthYear(Authenticatable user, DateTime date) async {
     final result = await usersRef.whereEmail(isEqualTo: user.email).get();
     final userId = result.docs.first.id;
 
@@ -59,5 +56,24 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
                               .get();
     
     return snapshot.docs.isEmpty ? null : snapshot.docs.first; 
+  }
+  
+  @override
+  Future<void> endByMonthYear(Authenticatable user, Assessment assessment) async {
+    final result = await usersRef.whereEmail(isEqualTo: user.email).get();
+    final userId = result.docs.first.id;
+
+    final assessmentsQuery = await usersRef
+        .doc(userId)
+        .assessments
+        .whereMonth(isEqualTo: assessment.month)
+        .whereYear(isEqualTo: assessment.year)
+        .whereInProgress(isEqualTo: true)
+        .get();
+
+    if (assessmentsQuery.docs.isNotEmpty) {
+      final existing = assessmentsQuery.docs.first;
+      await existing.reference.update(inProgress: false);
+    }
   }
 }

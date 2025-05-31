@@ -12,4 +12,12 @@ class AssessmentController {
     final assessments = _assessmentService.getAssessments(_user);
     return assessments;
   }
+
+  Future<void> end(Assessment assessment) async {
+    try {
+      await _assessmentService.endAssessment(_user, assessment);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
