@@ -13,11 +13,11 @@ class IncomeServiceImpl implements IncomeService {
   @override
   Future<void> createIncome(Authenticatable user, Income income, DateTime date) async {
     final assessmentSnapshot = await _assessmentService.ensureAssessmentByMonthYear(user, date);
-    await _incomeRepository.createIncomeByAssessment(income, assessmentSnapshot);
+    await _incomeRepository.createByAssessment(income, assessmentSnapshot);
   }
   
   @override
   Stream<List<IncomeQueryDocumentSnapshot>> getAllIncomes(AssessmentQueryDocumentSnapshot assessmentSnapshot) {
-    return _incomeRepository.getAllIncomesByAssessment(assessmentSnapshot);
+    return _incomeRepository.getAllByAssessment(assessmentSnapshot);
   }
 }

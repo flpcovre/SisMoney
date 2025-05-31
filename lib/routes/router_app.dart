@@ -14,7 +14,7 @@ class RouterApp {
   static const String home      = '/home';
   static const String income    = '/income';
 
-  static const String initialRoute = home;
+  static const String initialRoute = splash;
 
   static final List<GetPage> getPages = [
     GetPage(

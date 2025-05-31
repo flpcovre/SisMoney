@@ -11,25 +11,25 @@ class AssessmentServiceImpl implements AssessmentService {
 
   @override
   Stream<List<AssessmentQueryDocumentSnapshot>> getAssessments(Authenticatable user) {
-    return _assessmentRepository.getAllAssessmentsByUser(user);
+    return _assessmentRepository.getAllByUser(user);
   }
 
   @override
   Future<AssessmentQueryDocumentSnapshot> ensureAssessmentByMonthYear(Authenticatable user, DateTime date) async {
-    final assessmentSnapshot = await _assessmentRepository.getOneAsssessmentByMonthYear(user, date);
+    final assessmentSnapshot = await _assessmentRepository.getOneByMonthYear(user, date);
 
     if (assessmentSnapshot == null) {
 
-        final inProgressAssessment = await _assessmentRepository.getOneAssessmentInProgress(user);
+        final inProgressAssessment = await _assessmentRepository.getOneInProgress(user);
 
-        if (inProgressAssessment == null) {
+        if (inProgressAssessment != null) {
           throw BaseException('Você ainda possui um mês que não foi finalizado.');
         }
 
         final newAssessment = Assessment(month: date.month, year: date.year, inProgress: true);
-        await _assessmentRepository.createAssessment(user, newAssessment);
+        await _assessmentRepository.create(user, newAssessment);
 
-        return await _assessmentRepository.getOneAsssessmentByMonthYear(user, date)
+        return await _assessmentRepository.getOneByMonthYear(user, date)
             ?? (throw BaseException("Erro ao criar e recuperar a nova assessment."));
     }
 

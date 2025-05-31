@@ -3,7 +3,7 @@ import 'package:sismoney/repositories/contracts/income_repository.dart';
 
 class IncomeRepositoryImpl implements IncomeRepository {
   @override
-  Future<void> createIncomeByAssessment(Income income, AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
+  Future<void> createByAssessment(Income income, AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
     await assessmentSnapshot
             .reference
             .incomes
@@ -11,7 +11,7 @@ class IncomeRepositoryImpl implements IncomeRepository {
   }
   
   @override
-  Stream<List<IncomeQueryDocumentSnapshot>> getAllIncomesByAssessment(AssessmentQueryDocumentSnapshot assessmentSnapshot) {
+  Stream<List<IncomeQueryDocumentSnapshot>> getAllByAssessment(AssessmentQueryDocumentSnapshot assessmentSnapshot) {
     return assessmentSnapshot
             .reference
             .incomes

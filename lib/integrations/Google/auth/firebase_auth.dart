@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:sismoney/integrations/google/auth/auth_result.dart';
 import 'package:sismoney/integrations/google/auth/contracts/authentication.dart';
 import 'package:sismoney/repositories/contracts/user_repository.dart';
-import 'package:sismoney/repositories/user_repository_impl.dart';
 import 'package:sismoney/models/user.dart' as user;
 
 class AppFirebaseAuth implements Authentication {

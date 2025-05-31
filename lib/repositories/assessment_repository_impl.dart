@@ -5,7 +5,7 @@ import 'package:sismoney/repositories/contracts/assessment_repository.dart';
 class AssessmentRepositoryImpl implements AssessmentRepository {
 
   @override
-  Stream<List<AssessmentQueryDocumentSnapshot>> getAllAssessmentsByUser(Authenticatable user) async* {
+  Stream<List<AssessmentQueryDocumentSnapshot>> getAllByUser(Authenticatable user) async* {
     final result = await usersRef.whereEmail(isEqualTo: user.email).get();
     final userId = result.docs.first.id;
 
@@ -19,7 +19,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
   
   @override
-  Future<Assessment> createAssessment(Authenticatable user, Assessment assessment) async {
+  Future<Assessment> create(Authenticatable user, Assessment assessment) async {
     final result = await usersRef.whereEmail(isEqualTo: user.email).get();
     final userId = result.docs.first.id;
 
@@ -30,7 +30,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
   
   @override
-  Future<AssessmentQueryDocumentSnapshot?> getOneAsssessmentByMonthYear(
+  Future<AssessmentQueryDocumentSnapshot?> getOneByMonthYear(
     Authenticatable user, 
     DateTime date
   ) async {
@@ -48,7 +48,16 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
   
   @override
-  Future<AssessmentQueryDocumentSnapshot?> getOneAssessmentInProgress(Authenticatable user) async {
-    return null;
+  Future<AssessmentQueryDocumentSnapshot?> getOneInProgress(Authenticatable user) async {
+    final result = await usersRef.whereEmail(isEqualTo: user.email).get();
+    final userId = result.docs.first.id;
+
+    final snapshot = await usersRef
+                              .doc(userId)
+                              .assessments
+                              .whereInProgress(isEqualTo: true)
+                              .get();
+    
+    return snapshot.docs.isEmpty ? null : snapshot.docs.first; 
   }
 }

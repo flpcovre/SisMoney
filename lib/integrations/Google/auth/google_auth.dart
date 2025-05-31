@@ -4,7 +4,6 @@ import 'package:sismoney/integrations/google/auth/auth_result.dart';
 import 'package:sismoney/integrations/google/auth/contracts/external_provider_authentication.dart';
 import 'package:sismoney/models/user.dart' as user;
 import 'package:sismoney/repositories/contracts/user_repository.dart';
-import 'package:sismoney/repositories/user_repository_impl.dart';
 
 class GoogleAuth implements ExternalProviderAuthentication{
   final GoogleSignIn _googleSignIn = GoogleSignIn();
