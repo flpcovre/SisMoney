@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/components/base_dialog.dart';
 import 'package:sismoney/components/base_flushbar.dart';
+import 'package:sismoney/components/bot_response_modal_bottom_sheet/bot_response_modal_bottom_sheet.dart';
 import 'package:sismoney/components/header_card.dart';
 import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_bottom_sheet.dart';
 import 'package:sismoney/components/skeletons/card_skeleton.dart';
@@ -172,7 +173,11 @@ class IncomePage extends StatelessWidget {
                         titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                         messageStyle: TextStyle(fontSize: 16),
                         onConfirm: () async {
-                          await controller.endAssessment(assessmentSnapshot);
+                          // await controller.endAssessment(assessmentSnapshot);
+                          await BotResponseModalBottomSheet.show(
+                            context,
+                            assessment: assessmentSnapshot
+                          );
                         },
                       );
                     } catch (e) {

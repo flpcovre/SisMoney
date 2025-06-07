@@ -30,6 +30,7 @@ dependencies:
   calendar_date_picker2: ^2.0.1
   dropdown_button2: ^2.3.9
   another_flushbar: ^1.12.30
+  http: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - lib/assets/img/robot.png
     - lib/assets/img/google-icon.png
     - lib/assets/img/circle-avatar.png

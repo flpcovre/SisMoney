@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/controllers/answer_controller.dart';
 import 'package:sismoney/controllers/auth_controller.dart';
 import 'package:sismoney/routes/router_app.dart';
 
@@ -41,7 +42,12 @@ class LoginPageController extends GetxController {
     }
 
     clearFormFields();
-    Get.toNamed(RouterApp.questions);
+
+    if (await verifyAnswers()) {
+      Get.toNamed(RouterApp.home);
+    } else {
+      Get.toNamed(RouterApp.questions);
+    }
     return true;
   }
 
@@ -53,7 +59,19 @@ class LoginPageController extends GetxController {
     }
 
     clearFormFields();
-    Get.toNamed(RouterApp.questions);
+    if (await verifyAnswers()) {
+      Get.toNamed(RouterApp.home);
+    } else {
+      Get.toNamed(RouterApp.questions);
+    }
+    return true;
+  }
+
+  Future<bool> verifyAnswers() async {
+    final AnswerController answerController = Get.find<AnswerController>();
+    final answers = await answerController.fetch();
+
+    if (answers.isEmpty) return false;
     return true;
   }
 }

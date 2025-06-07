@@ -40,4 +40,9 @@ class IncomeServiceImpl implements IncomeService {
     
     return total;
   }
+  
+  @override
+  Future<List<Income>> getIncomes(AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
+    return await _incomeRepository.getAllObjectsByAssessments(assessmentSnapshot);
+  }
 }

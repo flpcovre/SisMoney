@@ -4,6 +4,9 @@ import 'package:sismoney/integrations/google/auth/contracts/authentication.dart'
 import 'package:sismoney/integrations/google/auth/contracts/external_provider_authentication.dart';
 import 'package:sismoney/integrations/google/auth/firebase_auth.dart';
 import 'package:sismoney/integrations/google/auth/google_auth.dart';
+import 'package:sismoney/integrations/openai/completions/create_default_chat_completion.dart';
+import 'package:sismoney/integrations/requests/contracts/api_contract.dart';
+import 'package:sismoney/integrations/requests/http_request.dart';
 import 'package:sismoney/repositories/answer_repository_impl.dart';
 import 'package:sismoney/repositories/assessment_repository_impl.dart';
 import 'package:sismoney/repositories/contracts/answer_repository.dart';
@@ -40,11 +43,15 @@ class AppBinding extends Bindings {
     Get.lazyPut<QuestionService>(() => QuestionServiceImpl(Get.find()));
     Get.lazyPut<AssessmentService>(() => AssessmentServiceImpl(Get.find()));
     Get.lazyPut<IncomeService>(() => IncomeServiceImpl(Get.find(), Get.find()));
-    Get.lazyPut<ExternalProviderAuthentication>(() => GoogleAuth(Get.find()));
-    Get.lazyPut<Authentication>(() => AppFirebaseAuth(Get.find()));
     Get.lazyPut<AnswerService>(() => AnswerServiceImpl(Get.find()));
+    Get.lazyPut<Authentication>(() => AppFirebaseAuth(Get.find()));
+    Get.lazyPut<ExternalProviderAuthentication>(() => GoogleAuth(Get.find()));
 
     /// Controllers
     Get.put(AuthController(Get.find(), Get.find()));
+
+    /// Integrations
+    Get.lazyPut<ApiContract>(() => HttpRequest());
+    Get.lazyPut<CreateDefaultChatCompletion>(() => CreateDefaultChatCompletion(Get.find()));
   }
 }
