@@ -7,4 +7,5 @@ abstract class AssessmentRepository {
   Future<Assessment> create(Authenticatable user, Assessment assessment);
   Future<AssessmentQueryDocumentSnapshot?> getOneInProgress(Authenticatable user);
   Future<void> endByMonthYear(Authenticatable user, Assessment assessment);
+  Future<void> createEndBalance(double balance, AssessmentQueryDocumentSnapshot snapshot);
 }

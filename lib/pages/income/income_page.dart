@@ -173,11 +173,11 @@ class IncomePage extends StatelessWidget {
                         titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                         messageStyle: TextStyle(fontSize: 16),
                         onConfirm: () async {
-                          // await controller.endAssessment(assessmentSnapshot);
                           await BotResponseModalBottomSheet.show(
                             context,
                             assessment: assessmentSnapshot
                           );
+                          // await controller.endAssessment(assessmentSnapshot);
                         },
                       );
                     } catch (e) {

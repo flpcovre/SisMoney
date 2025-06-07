@@ -7,7 +7,7 @@ class BotResponseModalBottomSheet {
   static Future show(
     BuildContext context,
     { required AssessmentQueryDocumentSnapshot assessment }
-    ) async {
+  ) async {
 
     final BotResponseModalBottomSheetController controller = Get.put(BotResponseModalBottomSheetController());
 

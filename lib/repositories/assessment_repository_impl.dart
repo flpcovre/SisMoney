@@ -76,4 +76,9 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
       await existing.reference.update(inProgress: false);
     }
   }
+  
+  @override
+  Future<void> createEndBalance(double balance, AssessmentQueryDocumentSnapshot snapshot) async {
+    await snapshot.reference.update(endBalance: balance); 
+  }
 }

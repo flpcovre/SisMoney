@@ -32,11 +32,15 @@ class Assessment {
   final int month;
   final int year;
   final bool inProgress;
+  double? startBalance;
+  double? endBalance;
 
   Assessment({
     required this.month,
     required this.year,
     required this.inProgress,
+    this.startBalance,
+    this.endBalance
   });
 
   factory Assessment.fromJson(Map<String, Object?> json) =>

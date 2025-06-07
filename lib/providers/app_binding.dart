@@ -41,17 +41,26 @@ class AppBinding extends Bindings {
     /// Services
     Get.lazyPut<UserService>(() => UserServiceImpl(Get.find()));
     Get.lazyPut<QuestionService>(() => QuestionServiceImpl(Get.find()));
-    Get.lazyPut<AssessmentService>(() => AssessmentServiceImpl(Get.find()));
-    Get.lazyPut<IncomeService>(() => IncomeServiceImpl(Get.find(), Get.find()));
+
+    final incomeService = IncomeServiceImpl(Get.find());
+    final assessmentService = AssessmentServiceImpl(Get.find());
+
+    incomeService.setAssessmentService(assessmentService);
+    assessmentService.setIncomeService(incomeService);
+
+    Get.put<IncomeService>(incomeService);
+    Get.put<AssessmentService>(assessmentService);
+
     Get.lazyPut<AnswerService>(() => AnswerServiceImpl(Get.find()));
     Get.lazyPut<Authentication>(() => AppFirebaseAuth(Get.find()));
     Get.lazyPut<ExternalProviderAuthentication>(() => GoogleAuth(Get.find()));
+    
+    /// Integrations
+    Get.lazyPut<ApiContract>(() => HttpRequest());
+    Get.lazyPut<CreateDefaultChatCompletion>(() => CreateDefaultChatCompletion(Get.find()));
 
     /// Controllers
     Get.put(AuthController(Get.find(), Get.find()));
 
-    /// Integrations
-    Get.lazyPut<ApiContract>(() => HttpRequest());
-    Get.lazyPut<CreateDefaultChatCompletion>(() => CreateDefaultChatCompletion(Get.find()));
   }
 }

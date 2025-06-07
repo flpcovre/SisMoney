@@ -1258,6 +1258,8 @@ abstract class AssessmentDocumentReference
     FieldValue monthFieldValue,
     FieldValue yearFieldValue,
     FieldValue inProgressFieldValue,
+    FieldValue startBalanceFieldValue,
+    FieldValue endBalanceFieldValue,
   });
 
   /// Writes to the document using the transaction API.
@@ -1274,6 +1276,8 @@ abstract class AssessmentDocumentReference
     FieldValue monthFieldValue,
     FieldValue yearFieldValue,
     FieldValue inProgressFieldValue,
+    FieldValue startBalanceFieldValue,
+    FieldValue endBalanceFieldValue,
   });
 
   /// Writes to the document using the batch API.
@@ -1290,6 +1294,8 @@ abstract class AssessmentDocumentReference
     FieldValue monthFieldValue,
     FieldValue yearFieldValue,
     FieldValue inProgressFieldValue,
+    FieldValue startBalanceFieldValue,
+    FieldValue endBalanceFieldValue,
   });
 
   /// Updates data on the document. Data will be merged with any existing
@@ -1303,6 +1309,10 @@ abstract class AssessmentDocumentReference
     FieldValue yearFieldValue,
     bool inProgress,
     FieldValue inProgressFieldValue,
+    double? startBalance,
+    FieldValue startBalanceFieldValue,
+    double? endBalance,
+    FieldValue endBalanceFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -1316,6 +1326,10 @@ abstract class AssessmentDocumentReference
     FieldValue yearFieldValue,
     bool inProgress,
     FieldValue inProgressFieldValue,
+    double? startBalance,
+    FieldValue startBalanceFieldValue,
+    double? endBalance,
+    FieldValue endBalanceFieldValue,
   });
 
   /// Updates fields in the current document using the batch API.
@@ -1329,6 +1343,10 @@ abstract class AssessmentDocumentReference
     FieldValue yearFieldValue,
     bool inProgress,
     FieldValue inProgressFieldValue,
+    double? startBalance,
+    FieldValue startBalanceFieldValue,
+    double? endBalance,
+    FieldValue endBalanceFieldValue,
   });
 }
 
@@ -1375,6 +1393,8 @@ class _$AssessmentDocumentReference
     FieldValue? monthFieldValue,
     FieldValue? yearFieldValue,
     FieldValue? inProgressFieldValue,
+    FieldValue? startBalanceFieldValue,
+    FieldValue? endBalanceFieldValue,
   }) async {
     final json = {
       ...model.toJson(),
@@ -1383,6 +1403,10 @@ class _$AssessmentDocumentReference
       if (yearFieldValue != null) _$AssessmentFieldMap['year']!: yearFieldValue,
       if (inProgressFieldValue != null)
         _$AssessmentFieldMap['inProgress']!: inProgressFieldValue,
+      if (startBalanceFieldValue != null)
+        _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
+      if (endBalanceFieldValue != null)
+        _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
     };
 
     final castedReference = reference.withConverter<Map<String, dynamic>>(
@@ -1399,6 +1423,8 @@ class _$AssessmentDocumentReference
     FieldValue? monthFieldValue,
     FieldValue? yearFieldValue,
     FieldValue? inProgressFieldValue,
+    FieldValue? startBalanceFieldValue,
+    FieldValue? endBalanceFieldValue,
   }) {
     final json = {
       ...model.toJson(),
@@ -1407,6 +1433,10 @@ class _$AssessmentDocumentReference
       if (yearFieldValue != null) _$AssessmentFieldMap['year']!: yearFieldValue,
       if (inProgressFieldValue != null)
         _$AssessmentFieldMap['inProgress']!: inProgressFieldValue,
+      if (startBalanceFieldValue != null)
+        _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
+      if (endBalanceFieldValue != null)
+        _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
     };
 
     transaction.set(reference, json, options);
@@ -1419,6 +1449,8 @@ class _$AssessmentDocumentReference
     FieldValue? monthFieldValue,
     FieldValue? yearFieldValue,
     FieldValue? inProgressFieldValue,
+    FieldValue? startBalanceFieldValue,
+    FieldValue? endBalanceFieldValue,
   }) {
     final json = {
       ...model.toJson(),
@@ -1427,6 +1459,10 @@ class _$AssessmentDocumentReference
       if (yearFieldValue != null) _$AssessmentFieldMap['year']!: yearFieldValue,
       if (inProgressFieldValue != null)
         _$AssessmentFieldMap['inProgress']!: inProgressFieldValue,
+      if (startBalanceFieldValue != null)
+        _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
+      if (endBalanceFieldValue != null)
+        _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
     };
 
     batch.set(reference, json, options);
@@ -1439,6 +1475,10 @@ class _$AssessmentDocumentReference
     FieldValue? yearFieldValue,
     Object? inProgress = _sentinel,
     FieldValue? inProgressFieldValue,
+    Object? startBalance = _sentinel,
+    FieldValue? startBalanceFieldValue,
+    Object? endBalance = _sentinel,
+    FieldValue? endBalanceFieldValue,
   }) async {
     assert(
       month == _sentinel || monthFieldValue == null,
@@ -1452,6 +1492,14 @@ class _$AssessmentDocumentReference
       inProgress == _sentinel || inProgressFieldValue == null,
       "Cannot specify both inProgress and inProgressFieldValue",
     );
+    assert(
+      startBalance == _sentinel || startBalanceFieldValue == null,
+      "Cannot specify both startBalance and startBalanceFieldValue",
+    );
+    assert(
+      endBalance == _sentinel || endBalanceFieldValue == null,
+      "Cannot specify both endBalance and endBalanceFieldValue",
+    );
     final json = {
       if (month != _sentinel)
         _$AssessmentFieldMap['month']!:
@@ -1467,6 +1515,16 @@ class _$AssessmentDocumentReference
             _$AssessmentPerFieldToJson.inProgress(inProgress as bool),
       if (inProgressFieldValue != null)
         _$AssessmentFieldMap['inProgress']!: inProgressFieldValue,
+      if (startBalance != _sentinel)
+        _$AssessmentFieldMap['startBalance']!:
+            _$AssessmentPerFieldToJson.startBalance(startBalance as double?),
+      if (startBalanceFieldValue != null)
+        _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
+      if (endBalance != _sentinel)
+        _$AssessmentFieldMap['endBalance']!:
+            _$AssessmentPerFieldToJson.endBalance(endBalance as double?),
+      if (endBalanceFieldValue != null)
+        _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
     };
 
     return reference.update(json);
@@ -1480,6 +1538,10 @@ class _$AssessmentDocumentReference
     FieldValue? yearFieldValue,
     Object? inProgress = _sentinel,
     FieldValue? inProgressFieldValue,
+    Object? startBalance = _sentinel,
+    FieldValue? startBalanceFieldValue,
+    Object? endBalance = _sentinel,
+    FieldValue? endBalanceFieldValue,
   }) {
     assert(
       month == _sentinel || monthFieldValue == null,
@@ -1492,6 +1554,14 @@ class _$AssessmentDocumentReference
     assert(
       inProgress == _sentinel || inProgressFieldValue == null,
       "Cannot specify both inProgress and inProgressFieldValue",
+    );
+    assert(
+      startBalance == _sentinel || startBalanceFieldValue == null,
+      "Cannot specify both startBalance and startBalanceFieldValue",
+    );
+    assert(
+      endBalance == _sentinel || endBalanceFieldValue == null,
+      "Cannot specify both endBalance and endBalanceFieldValue",
     );
     final json = {
       if (month != _sentinel)
@@ -1508,6 +1578,16 @@ class _$AssessmentDocumentReference
             _$AssessmentPerFieldToJson.inProgress(inProgress as bool),
       if (inProgressFieldValue != null)
         _$AssessmentFieldMap['inProgress']!: inProgressFieldValue,
+      if (startBalance != _sentinel)
+        _$AssessmentFieldMap['startBalance']!:
+            _$AssessmentPerFieldToJson.startBalance(startBalance as double?),
+      if (startBalanceFieldValue != null)
+        _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
+      if (endBalance != _sentinel)
+        _$AssessmentFieldMap['endBalance']!:
+            _$AssessmentPerFieldToJson.endBalance(endBalance as double?),
+      if (endBalanceFieldValue != null)
+        _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
     };
 
     transaction.update(reference, json);
@@ -1521,6 +1601,10 @@ class _$AssessmentDocumentReference
     FieldValue? yearFieldValue,
     Object? inProgress = _sentinel,
     FieldValue? inProgressFieldValue,
+    Object? startBalance = _sentinel,
+    FieldValue? startBalanceFieldValue,
+    Object? endBalance = _sentinel,
+    FieldValue? endBalanceFieldValue,
   }) {
     assert(
       month == _sentinel || monthFieldValue == null,
@@ -1533,6 +1617,14 @@ class _$AssessmentDocumentReference
     assert(
       inProgress == _sentinel || inProgressFieldValue == null,
       "Cannot specify both inProgress and inProgressFieldValue",
+    );
+    assert(
+      startBalance == _sentinel || startBalanceFieldValue == null,
+      "Cannot specify both startBalance and startBalanceFieldValue",
+    );
+    assert(
+      endBalance == _sentinel || endBalanceFieldValue == null,
+      "Cannot specify both endBalance and endBalanceFieldValue",
     );
     final json = {
       if (month != _sentinel)
@@ -1549,6 +1641,16 @@ class _$AssessmentDocumentReference
             _$AssessmentPerFieldToJson.inProgress(inProgress as bool),
       if (inProgressFieldValue != null)
         _$AssessmentFieldMap['inProgress']!: inProgressFieldValue,
+      if (startBalance != _sentinel)
+        _$AssessmentFieldMap['startBalance']!:
+            _$AssessmentPerFieldToJson.startBalance(startBalance as double?),
+      if (startBalanceFieldValue != null)
+        _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
+      if (endBalance != _sentinel)
+        _$AssessmentFieldMap['endBalance']!:
+            _$AssessmentPerFieldToJson.endBalance(endBalance as double?),
+      if (endBalanceFieldValue != null)
+        _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
     };
 
     batch.update(reference, json);
@@ -1654,6 +1756,30 @@ abstract class AssessmentQuery
     bool? isNull,
   });
 
+  AssessmentQuery whereStartBalance({
+    double? isEqualTo,
+    double? isNotEqualTo,
+    double? isLessThan,
+    double? isLessThanOrEqualTo,
+    double? isGreaterThan,
+    double? isGreaterThanOrEqualTo,
+    List<double?>? whereIn,
+    List<double?>? whereNotIn,
+    bool? isNull,
+  });
+
+  AssessmentQuery whereEndBalance({
+    double? isEqualTo,
+    double? isNotEqualTo,
+    double? isLessThan,
+    double? isLessThanOrEqualTo,
+    double? isGreaterThan,
+    double? isGreaterThanOrEqualTo,
+    List<double?>? whereIn,
+    List<double?>? whereNotIn,
+    bool? isNull,
+  });
+
   /// Perform an order query based on a [FieldPath].
   ///
   /// This method is considered unsafe as it does check that the field path
@@ -1729,6 +1855,30 @@ abstract class AssessmentQuery
     bool startAfter,
     bool endAt,
     bool endBefore,
+    AssessmentDocumentSnapshot? startAtDocument,
+    AssessmentDocumentSnapshot? endAtDocument,
+    AssessmentDocumentSnapshot? endBeforeDocument,
+    AssessmentDocumentSnapshot? startAfterDocument,
+  });
+
+  AssessmentQuery orderByStartBalance({
+    bool descending = false,
+    double? startAt,
+    double? startAfter,
+    double? endAt,
+    double? endBefore,
+    AssessmentDocumentSnapshot? startAtDocument,
+    AssessmentDocumentSnapshot? endAtDocument,
+    AssessmentDocumentSnapshot? endBeforeDocument,
+    AssessmentDocumentSnapshot? startAfterDocument,
+  });
+
+  AssessmentQuery orderByEndBalance({
+    bool descending = false,
+    double? startAt,
+    double? startAfter,
+    double? endAt,
+    double? endBefore,
     AssessmentDocumentSnapshot? startAtDocument,
     AssessmentDocumentSnapshot? endAtDocument,
     AssessmentDocumentSnapshot? endBeforeDocument,
@@ -1977,6 +2127,101 @@ class _$AssessmentQuery
         whereIn: whereIn?.map((e) => _$AssessmentPerFieldToJson.inProgress(e)),
         whereNotIn:
             whereNotIn?.map((e) => _$AssessmentPerFieldToJson.inProgress(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssessmentQuery whereStartBalance({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<double?>? whereIn,
+    List<double?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssessmentQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssessmentFieldMap['startBalance']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssessmentPerFieldToJson.startBalance(isEqualTo as double?)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssessmentPerFieldToJson.startBalance(isNotEqualTo as double?)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssessmentPerFieldToJson.startBalance(isLessThan as double?)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssessmentPerFieldToJson
+                .startBalance(isLessThanOrEqualTo as double?)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssessmentPerFieldToJson.startBalance(isGreaterThan as double?)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssessmentPerFieldToJson
+                .startBalance(isGreaterThanOrEqualTo as double?)
+            : null,
+        whereIn:
+            whereIn?.map((e) => _$AssessmentPerFieldToJson.startBalance(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssessmentPerFieldToJson.startBalance(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssessmentQuery whereEndBalance({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<double?>? whereIn,
+    List<double?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssessmentQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssessmentFieldMap['endBalance']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssessmentPerFieldToJson.endBalance(isEqualTo as double?)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssessmentPerFieldToJson.endBalance(isNotEqualTo as double?)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssessmentPerFieldToJson.endBalance(isLessThan as double?)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssessmentPerFieldToJson
+                .endBalance(isLessThanOrEqualTo as double?)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssessmentPerFieldToJson.endBalance(isGreaterThan as double?)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssessmentPerFieldToJson
+                .endBalance(isGreaterThanOrEqualTo as double?)
+            : null,
+        whereIn: whereIn?.map((e) => _$AssessmentPerFieldToJson.endBalance(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssessmentPerFieldToJson.endBalance(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -2292,6 +2537,152 @@ class _$AssessmentQuery
   }) {
     final query = $referenceWithoutCursor
         .orderBy(_$AssessmentFieldMap['inProgress']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssessmentQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssessmentQuery orderByStartBalance({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssessmentDocumentSnapshot? startAtDocument,
+    AssessmentDocumentSnapshot? endAtDocument,
+    AssessmentDocumentSnapshot? endBeforeDocument,
+    AssessmentDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AssessmentFieldMap['startBalance']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssessmentQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssessmentQuery orderByEndBalance({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssessmentDocumentSnapshot? startAtDocument,
+    AssessmentDocumentSnapshot? endAtDocument,
+    AssessmentDocumentSnapshot? endBeforeDocument,
+    AssessmentDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AssessmentFieldMap['endBalance']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5084,12 +5475,16 @@ Assessment _$AssessmentFromJson(Map<String, dynamic> json) => Assessment(
       month: (json['month'] as num).toInt(),
       year: (json['year'] as num).toInt(),
       inProgress: json['inProgress'] as bool,
+      startBalance: (json['startBalance'] as num?)?.toDouble(),
+      endBalance: (json['endBalance'] as num?)?.toDouble(),
     );
 
 const _$AssessmentFieldMap = <String, String>{
   'month': 'month',
   'year': 'year',
   'inProgress': 'inProgress',
+  'startBalance': 'startBalance',
+  'endBalance': 'endBalance',
 };
 
 // ignore: unused_element
@@ -5100,6 +5495,10 @@ abstract class _$AssessmentPerFieldToJson {
   static Object? year(int instance) => instance;
   // ignore: unused_element
   static Object? inProgress(bool instance) => instance;
+  // ignore: unused_element
+  static Object? startBalance(double? instance) => instance;
+  // ignore: unused_element
+  static Object? endBalance(double? instance) => instance;
 }
 
 Map<String, dynamic> _$AssessmentToJson(Assessment instance) =>
@@ -5107,6 +5506,8 @@ Map<String, dynamic> _$AssessmentToJson(Assessment instance) =>
       'month': instance.month,
       'year': instance.year,
       'inProgress': instance.inProgress,
+      'startBalance': instance.startBalance,
+      'endBalance': instance.endBalance,
     };
 
 Income _$IncomeFromJson(Map<String, dynamic> json) => Income(
