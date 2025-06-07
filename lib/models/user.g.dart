@@ -120,6 +120,10 @@ abstract class UserDocumentReference
     reference,
   );
 
+  late final AnswerCollectionReference answers = _$AnswerCollectionReference(
+    reference,
+  );
+
   @override
   Stream<UserDocumentSnapshot> snapshots();
 
@@ -223,6 +227,10 @@ class _$UserDocumentReference
 
   late final AssessmentCollectionReference assessments =
       _$AssessmentCollectionReference(
+    reference,
+  );
+
+  late final AnswerCollectionReference answers = _$AnswerCollectionReference(
     reference,
   );
 
@@ -3919,6 +3927,1132 @@ class IncomeQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot<Income>
   }
 }
 
+/// A collection reference object can be used for adding documents,
+/// getting document references, and querying for documents
+/// (using the methods inherited from Query).
+abstract class AnswerCollectionReference
+    implements
+        AnswerQuery,
+        FirestoreCollectionReference<Answer, AnswerQuerySnapshot> {
+  factory AnswerCollectionReference(
+    DocumentReference<User> parent,
+  ) = _$AnswerCollectionReference;
+
+  static Answer fromFirestore(
+    DocumentSnapshot<Map<String, Object?>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    return Answer.fromJson(snapshot.data()!);
+  }
+
+  static Map<String, Object?> toFirestore(
+    Answer value,
+    SetOptions? options,
+  ) {
+    return value.toJson();
+  }
+
+  @override
+  CollectionReference<Answer> get reference;
+
+  /// A reference to the containing [UserDocumentReference] if this is a subcollection.
+  UserDocumentReference get parent;
+
+  @override
+  AnswerDocumentReference doc([String? id]);
+
+  /// Add a new document to this collection with the specified data,
+  /// assigning it a document ID automatically.
+  Future<AnswerDocumentReference> add(Answer value);
+}
+
+class _$AnswerCollectionReference extends _$AnswerQuery
+    implements AnswerCollectionReference {
+  factory _$AnswerCollectionReference(
+    DocumentReference<User> parent,
+  ) {
+    return _$AnswerCollectionReference._(
+      UserDocumentReference(parent),
+      parent.collection('answers').withConverter(
+            fromFirestore: AnswerCollectionReference.fromFirestore,
+            toFirestore: AnswerCollectionReference.toFirestore,
+          ),
+    );
+  }
+
+  _$AnswerCollectionReference._(
+    this.parent,
+    CollectionReference<Answer> reference,
+  ) : super(reference, $referenceWithoutCursor: reference);
+
+  @override
+  final UserDocumentReference parent;
+
+  String get path => reference.path;
+
+  @override
+  CollectionReference<Answer> get reference =>
+      super.reference as CollectionReference<Answer>;
+
+  @override
+  AnswerDocumentReference doc([String? id]) {
+    assert(
+      id == null || id.split('/').length == 1,
+      'The document ID cannot be from a different collection',
+    );
+    return AnswerDocumentReference(
+      reference.doc(id),
+    );
+  }
+
+  @override
+  Future<AnswerDocumentReference> add(Answer value) {
+    return reference.add(value).then((ref) => AnswerDocumentReference(ref));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$AnswerCollectionReference &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+abstract class AnswerDocumentReference
+    extends FirestoreDocumentReference<Answer, AnswerDocumentSnapshot> {
+  factory AnswerDocumentReference(DocumentReference<Answer> reference) =
+      _$AnswerDocumentReference;
+
+  DocumentReference<Answer> get reference;
+
+  /// A reference to the [AnswerCollectionReference] containing this document.
+  AnswerCollectionReference get parent {
+    return _$AnswerCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<AnswerDocumentSnapshot> snapshots();
+
+  @override
+  Future<AnswerDocumentSnapshot> get([GetOptions? options]);
+
+  @override
+  Future<void> delete();
+
+  /// Sets data on the document, overwriting any existing data. If the document
+  /// does not yet exist, it will be created.
+  ///
+  /// If [SetOptions] are provided, the data can be merged into an existing
+  /// document instead of overwriting.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  Future<void> set(
+    Answer model, {
+    SetOptions? options,
+    FieldValue questionIdFieldValue,
+    FieldValue alternativeIdFieldValue,
+  });
+
+  /// Writes to the document using the transaction API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void transactionSet(
+    Transaction transaction,
+    Answer model, {
+    SetOptions? options,
+    FieldValue questionIdFieldValue,
+    FieldValue alternativeIdFieldValue,
+  });
+
+  /// Writes to the document using the batch API.
+  ///
+  /// If the document does not exist yet, it will be created. If you pass
+  /// [SetOptions], the provided data can be merged into the existing document.
+  ///
+  /// Any [FieldValue]s provided will replace the corresponding fields in the
+  /// [model] during serialization.
+  void batchSet(
+    WriteBatch batch,
+    Answer model, {
+    SetOptions? options,
+    FieldValue questionIdFieldValue,
+    FieldValue alternativeIdFieldValue,
+  });
+
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
+  Future<void> update({
+    int questionId,
+    FieldValue questionIdFieldValue,
+    int alternativeId,
+    FieldValue alternativeIdFieldValue,
+  });
+
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    int questionId,
+    FieldValue questionIdFieldValue,
+    int alternativeId,
+    FieldValue alternativeIdFieldValue,
+  });
+
+  /// Updates fields in the current document using the batch API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void batchUpdate(
+    WriteBatch batch, {
+    int questionId,
+    FieldValue questionIdFieldValue,
+    int alternativeId,
+    FieldValue alternativeIdFieldValue,
+  });
+}
+
+class _$AnswerDocumentReference
+    extends FirestoreDocumentReference<Answer, AnswerDocumentSnapshot>
+    implements AnswerDocumentReference {
+  _$AnswerDocumentReference(this.reference);
+
+  @override
+  final DocumentReference<Answer> reference;
+
+  /// A reference to the [AnswerCollectionReference] containing this document.
+  AnswerCollectionReference get parent {
+    return _$AnswerCollectionReference(
+      reference.parent.parent!.withConverter<User>(
+        fromFirestore: UserCollectionReference.fromFirestore,
+        toFirestore: UserCollectionReference.toFirestore,
+      ),
+    );
+  }
+
+  @override
+  Stream<AnswerDocumentSnapshot> snapshots() {
+    return reference.snapshots().map(AnswerDocumentSnapshot._);
+  }
+
+  @override
+  Future<AnswerDocumentSnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(AnswerDocumentSnapshot._);
+  }
+
+  @override
+  Future<AnswerDocumentSnapshot> transactionGet(Transaction transaction) {
+    return transaction.get(reference).then(AnswerDocumentSnapshot._);
+  }
+
+  Future<void> set(
+    Answer model, {
+    SetOptions? options,
+    FieldValue? questionIdFieldValue,
+    FieldValue? alternativeIdFieldValue,
+  }) async {
+    final json = {
+      ...model.toJson(),
+      if (questionIdFieldValue != null)
+        _$AnswerFieldMap['questionId']!: questionIdFieldValue,
+      if (alternativeIdFieldValue != null)
+        _$AnswerFieldMap['alternativeId']!: alternativeIdFieldValue,
+    };
+
+    final castedReference = reference.withConverter<Map<String, dynamic>>(
+      fromFirestore: (snapshot, options) => throw UnimplementedError(),
+      toFirestore: (value, options) => value,
+    );
+    return castedReference.set(json, options);
+  }
+
+  void transactionSet(
+    Transaction transaction,
+    Answer model, {
+    SetOptions? options,
+    FieldValue? questionIdFieldValue,
+    FieldValue? alternativeIdFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (questionIdFieldValue != null)
+        _$AnswerFieldMap['questionId']!: questionIdFieldValue,
+      if (alternativeIdFieldValue != null)
+        _$AnswerFieldMap['alternativeId']!: alternativeIdFieldValue,
+    };
+
+    transaction.set(reference, json, options);
+  }
+
+  void batchSet(
+    WriteBatch batch,
+    Answer model, {
+    SetOptions? options,
+    FieldValue? questionIdFieldValue,
+    FieldValue? alternativeIdFieldValue,
+  }) {
+    final json = {
+      ...model.toJson(),
+      if (questionIdFieldValue != null)
+        _$AnswerFieldMap['questionId']!: questionIdFieldValue,
+      if (alternativeIdFieldValue != null)
+        _$AnswerFieldMap['alternativeId']!: alternativeIdFieldValue,
+    };
+
+    batch.set(reference, json, options);
+  }
+
+  Future<void> update({
+    Object? questionId = _sentinel,
+    FieldValue? questionIdFieldValue,
+    Object? alternativeId = _sentinel,
+    FieldValue? alternativeIdFieldValue,
+  }) async {
+    assert(
+      questionId == _sentinel || questionIdFieldValue == null,
+      "Cannot specify both questionId and questionIdFieldValue",
+    );
+    assert(
+      alternativeId == _sentinel || alternativeIdFieldValue == null,
+      "Cannot specify both alternativeId and alternativeIdFieldValue",
+    );
+    final json = {
+      if (questionId != _sentinel)
+        _$AnswerFieldMap['questionId']!:
+            _$AnswerPerFieldToJson.questionId(questionId as int),
+      if (questionIdFieldValue != null)
+        _$AnswerFieldMap['questionId']!: questionIdFieldValue,
+      if (alternativeId != _sentinel)
+        _$AnswerFieldMap['alternativeId']!:
+            _$AnswerPerFieldToJson.alternativeId(alternativeId as int),
+      if (alternativeIdFieldValue != null)
+        _$AnswerFieldMap['alternativeId']!: alternativeIdFieldValue,
+    };
+
+    return reference.update(json);
+  }
+
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? questionId = _sentinel,
+    FieldValue? questionIdFieldValue,
+    Object? alternativeId = _sentinel,
+    FieldValue? alternativeIdFieldValue,
+  }) {
+    assert(
+      questionId == _sentinel || questionIdFieldValue == null,
+      "Cannot specify both questionId and questionIdFieldValue",
+    );
+    assert(
+      alternativeId == _sentinel || alternativeIdFieldValue == null,
+      "Cannot specify both alternativeId and alternativeIdFieldValue",
+    );
+    final json = {
+      if (questionId != _sentinel)
+        _$AnswerFieldMap['questionId']!:
+            _$AnswerPerFieldToJson.questionId(questionId as int),
+      if (questionIdFieldValue != null)
+        _$AnswerFieldMap['questionId']!: questionIdFieldValue,
+      if (alternativeId != _sentinel)
+        _$AnswerFieldMap['alternativeId']!:
+            _$AnswerPerFieldToJson.alternativeId(alternativeId as int),
+      if (alternativeIdFieldValue != null)
+        _$AnswerFieldMap['alternativeId']!: alternativeIdFieldValue,
+    };
+
+    transaction.update(reference, json);
+  }
+
+  void batchUpdate(
+    WriteBatch batch, {
+    Object? questionId = _sentinel,
+    FieldValue? questionIdFieldValue,
+    Object? alternativeId = _sentinel,
+    FieldValue? alternativeIdFieldValue,
+  }) {
+    assert(
+      questionId == _sentinel || questionIdFieldValue == null,
+      "Cannot specify both questionId and questionIdFieldValue",
+    );
+    assert(
+      alternativeId == _sentinel || alternativeIdFieldValue == null,
+      "Cannot specify both alternativeId and alternativeIdFieldValue",
+    );
+    final json = {
+      if (questionId != _sentinel)
+        _$AnswerFieldMap['questionId']!:
+            _$AnswerPerFieldToJson.questionId(questionId as int),
+      if (questionIdFieldValue != null)
+        _$AnswerFieldMap['questionId']!: questionIdFieldValue,
+      if (alternativeId != _sentinel)
+        _$AnswerFieldMap['alternativeId']!:
+            _$AnswerPerFieldToJson.alternativeId(alternativeId as int),
+      if (alternativeIdFieldValue != null)
+        _$AnswerFieldMap['alternativeId']!: alternativeIdFieldValue,
+    };
+
+    batch.update(reference, json);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AnswerDocumentReference &&
+        other.runtimeType == runtimeType &&
+        other.parent == parent &&
+        other.id == id;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, parent, id);
+}
+
+abstract class AnswerQuery
+    implements QueryReference<Answer, AnswerQuerySnapshot> {
+  @override
+  AnswerQuery limit(int limit);
+
+  @override
+  AnswerQuery limitToLast(int limit);
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  AnswerQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
+
+  AnswerQuery whereDocumentId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  });
+
+  AnswerQuery whereQuestionId({
+    int? isEqualTo,
+    int? isNotEqualTo,
+    int? isLessThan,
+    int? isLessThanOrEqualTo,
+    int? isGreaterThan,
+    int? isGreaterThanOrEqualTo,
+    List<int>? whereIn,
+    List<int>? whereNotIn,
+    bool? isNull,
+  });
+
+  AnswerQuery whereAlternativeId({
+    int? isEqualTo,
+    int? isNotEqualTo,
+    int? isLessThan,
+    int? isLessThanOrEqualTo,
+    int? isGreaterThan,
+    int? isGreaterThanOrEqualTo,
+    List<int>? whereIn,
+    List<int>? whereNotIn,
+    bool? isNull,
+  });
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  AnswerQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object startAt,
+    Object startAfter,
+    Object endAt,
+    Object endBefore,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  });
+
+  AnswerQuery orderByDocumentId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  });
+
+  AnswerQuery orderByQuestionId({
+    bool descending = false,
+    int startAt,
+    int startAfter,
+    int endAt,
+    int endBefore,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  });
+
+  AnswerQuery orderByAlternativeId({
+    bool descending = false,
+    int startAt,
+    int startAfter,
+    int endAt,
+    int endBefore,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  });
+}
+
+class _$AnswerQuery extends QueryReference<Answer, AnswerQuerySnapshot>
+    implements AnswerQuery {
+  _$AnswerQuery(
+    this._collection, {
+    required Query<Answer> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
+
+  final CollectionReference<Object?> _collection;
+
+  @override
+  Stream<AnswerQuerySnapshot> snapshots([SnapshotOptions? options]) {
+    return reference.snapshots().map(AnswerQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  Future<AnswerQuerySnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(AnswerQuerySnapshot._fromQuerySnapshot);
+  }
+
+  @override
+  AnswerQuery limit(int limit) {
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery limitToLast(int limit) {
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery whereFieldPath(
+    Object fieldPath, {
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        fieldPath,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery whereDocumentId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        FieldPath.documentId,
+        isEqualTo: isEqualTo != _sentinel ? isEqualTo : null,
+        isNotEqualTo: isNotEqualTo != _sentinel ? isNotEqualTo : null,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery whereQuestionId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<int>? whereIn,
+    List<int>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AnswerFieldMap['questionId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AnswerPerFieldToJson.questionId(isEqualTo as int)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AnswerPerFieldToJson.questionId(isNotEqualTo as int)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AnswerPerFieldToJson.questionId(isLessThan as int)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AnswerPerFieldToJson.questionId(isLessThanOrEqualTo as int)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AnswerPerFieldToJson.questionId(isGreaterThan as int)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AnswerPerFieldToJson.questionId(isGreaterThanOrEqualTo as int)
+            : null,
+        whereIn: whereIn?.map((e) => _$AnswerPerFieldToJson.questionId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AnswerPerFieldToJson.questionId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery whereAlternativeId({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<int>? whereIn,
+    List<int>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AnswerFieldMap['alternativeId']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AnswerPerFieldToJson.alternativeId(isEqualTo as int)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AnswerPerFieldToJson.alternativeId(isNotEqualTo as int)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AnswerPerFieldToJson.alternativeId(isLessThan as int)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AnswerPerFieldToJson.alternativeId(isLessThanOrEqualTo as int)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AnswerPerFieldToJson.alternativeId(isGreaterThan as int)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AnswerPerFieldToJson
+                .alternativeId(isGreaterThanOrEqualTo as int)
+            : null,
+        whereIn: whereIn?.map((e) => _$AnswerPerFieldToJson.alternativeId(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AnswerPerFieldToJson.alternativeId(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery orderByFieldPath(
+    Object fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  }) {
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery orderByDocumentId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery orderByQuestionId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AnswerFieldMap['questionId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AnswerQuery orderByAlternativeId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AnswerDocumentSnapshot? startAtDocument,
+    AnswerDocumentSnapshot? endAtDocument,
+    AnswerDocumentSnapshot? endBeforeDocument,
+    AnswerDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AnswerFieldMap['alternativeId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AnswerQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is _$AnswerQuery &&
+        other.runtimeType == runtimeType &&
+        other.reference == reference;
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reference);
+}
+
+class AnswerDocumentSnapshot extends FirestoreDocumentSnapshot<Answer> {
+  AnswerDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<Answer> snapshot;
+
+  @override
+  AnswerDocumentReference get reference {
+    return AnswerDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final Answer? data;
+}
+
+class AnswerQuerySnapshot
+    extends FirestoreQuerySnapshot<Answer, AnswerQueryDocumentSnapshot> {
+  AnswerQuerySnapshot._(
+    this.snapshot,
+    this.docs,
+    this.docChanges,
+  );
+
+  factory AnswerQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<Answer> snapshot,
+  ) {
+    final docs = snapshot.docs.map(AnswerQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        AnswerDocumentSnapshot._,
+      );
+    }).toList();
+
+    return AnswerQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<AnswerDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    AnswerDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+  ) {
+    return FirestoreDocumentChange<AnswerDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
+
+  final QuerySnapshot<Answer> snapshot;
+
+  @override
+  final List<AnswerQueryDocumentSnapshot> docs;
+
+  @override
+  final List<FirestoreDocumentChange<AnswerDocumentSnapshot>> docChanges;
+}
+
+class AnswerQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot<Answer>
+    implements AnswerDocumentSnapshot {
+  AnswerQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final QueryDocumentSnapshot<Answer> snapshot;
+
+  @override
+  final Answer data;
+
+  @override
+  AnswerDocumentReference get reference {
+    return AnswerDocumentReference(snapshot.reference);
+  }
+}
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
@@ -4006,4 +5140,27 @@ Map<String, dynamic> _$IncomeToJson(Income instance) => <String, dynamic>{
       'description': instance.description,
       'type': instance.type,
       'cast': instance.cast,
+    };
+
+Answer _$AnswerFromJson(Map<String, dynamic> json) => Answer(
+      questionId: (json['questionId'] as num).toInt(),
+      alternativeId: (json['alternativeId'] as num).toInt(),
+    );
+
+const _$AnswerFieldMap = <String, String>{
+  'questionId': 'questionId',
+  'alternativeId': 'alternativeId',
+};
+
+// ignore: unused_element
+abstract class _$AnswerPerFieldToJson {
+  // ignore: unused_element
+  static Object? questionId(int instance) => instance;
+  // ignore: unused_element
+  static Object? alternativeId(int instance) => instance;
+}
+
+Map<String, dynamic> _$AnswerToJson(Answer instance) => <String, dynamic>{
+      'questionId': instance.questionId,
+      'alternativeId': instance.alternativeId,
     };

@@ -41,7 +41,7 @@ class LoginPageController extends GetxController {
     }
 
     clearFormFields();
-    Get.toNamed(RouterApp.home);
+    Get.toNamed(RouterApp.questions);
     return true;
   }
 
@@ -53,7 +53,7 @@ class LoginPageController extends GetxController {
     }
 
     clearFormFields();
-    Get.toNamed(RouterApp.home);
+    Get.toNamed(RouterApp.questions);
     return true;
   }
 }
