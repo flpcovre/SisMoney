@@ -47,7 +47,7 @@ class RegisterPageController extends GetxController {
     print('Password: ${passwordController.text}');
 
     clearFormFields();
-    Get.toNamed(RouterApp.home);
+    Get.toNamed(RouterApp.questions);
     return true;
   }
 
@@ -61,7 +61,7 @@ class RegisterPageController extends GetxController {
     print('Singing up with Google...');
     print('Email: ${emailController.text}');
     clearFormFields();
-    Get.toNamed(RouterApp.home);
+    Get.toNamed(RouterApp.questions);
     return true;
   }
 
