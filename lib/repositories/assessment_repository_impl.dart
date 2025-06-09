@@ -78,7 +78,12 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
   
   @override
-  Future<void> createEndBalance(double balance, AssessmentQueryDocumentSnapshot snapshot) async {
+  Future<void> updateEndBalance(double balance, AssessmentQueryDocumentSnapshot snapshot) async {
     await snapshot.reference.update(endBalance: balance); 
+  }
+  
+  @override
+  Future<void> updateBotResponse(String response, AssessmentQueryDocumentSnapshot snapshot) async {
+    await snapshot.reference.update(botResponse: response);
   }
 }

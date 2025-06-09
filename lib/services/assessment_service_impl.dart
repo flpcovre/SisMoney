@@ -34,7 +34,7 @@ class AssessmentServiceImpl implements AssessmentService {
 
         final balance = await _incomeService.calculateUserIncomeBalance(user);
 
-        final newAssessment = Assessment(month: date.month, year: date.year, inProgress: true, startBalance: balance, endBalance: 0);
+        final newAssessment = Assessment(month: date.month, year: date.year, inProgress: true, startBalance: balance, endBalance: 0, botResponse: '');
         await _assessmentRepository.create(user, newAssessment);
 
         return await _assessmentRepository.getOneByMonthYear(user, date)
@@ -55,10 +55,21 @@ class AssessmentServiceImpl implements AssessmentService {
     final balance  = await _incomeService.calculateUserIncomeBalance(user); 
 
     if (snapshot != null) {
-      await _assessmentRepository.createEndBalance(balance, snapshot);
-
+      await _assessmentRepository.updateEndBalance(balance, snapshot);
     }
 
     await _assessmentRepository.endByMonthYear(user, assessment);
+  }
+  
+  @override
+  Future<AssessmentQueryDocumentSnapshot?> getByMonthYear(Authenticatable user,int month, int year) async {
+    final date = DateTime(year, month);
+
+    return await _assessmentRepository.getOneByMonthYear(user, date);
+  }
+  
+  @override
+  Future<void> setBotResponse(AssessmentQueryDocumentSnapshot assessment, String response) async {
+    await _assessmentRepository.updateBotResponse(response, assessment);
   }
 }

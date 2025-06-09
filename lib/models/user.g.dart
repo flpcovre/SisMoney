@@ -1260,6 +1260,7 @@ abstract class AssessmentDocumentReference
     FieldValue inProgressFieldValue,
     FieldValue startBalanceFieldValue,
     FieldValue endBalanceFieldValue,
+    FieldValue botResponseFieldValue,
   });
 
   /// Writes to the document using the transaction API.
@@ -1278,6 +1279,7 @@ abstract class AssessmentDocumentReference
     FieldValue inProgressFieldValue,
     FieldValue startBalanceFieldValue,
     FieldValue endBalanceFieldValue,
+    FieldValue botResponseFieldValue,
   });
 
   /// Writes to the document using the batch API.
@@ -1296,6 +1298,7 @@ abstract class AssessmentDocumentReference
     FieldValue inProgressFieldValue,
     FieldValue startBalanceFieldValue,
     FieldValue endBalanceFieldValue,
+    FieldValue botResponseFieldValue,
   });
 
   /// Updates data on the document. Data will be merged with any existing
@@ -1313,6 +1316,8 @@ abstract class AssessmentDocumentReference
     FieldValue startBalanceFieldValue,
     double? endBalance,
     FieldValue endBalanceFieldValue,
+    String? botResponse,
+    FieldValue botResponseFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -1330,6 +1335,8 @@ abstract class AssessmentDocumentReference
     FieldValue startBalanceFieldValue,
     double? endBalance,
     FieldValue endBalanceFieldValue,
+    String? botResponse,
+    FieldValue botResponseFieldValue,
   });
 
   /// Updates fields in the current document using the batch API.
@@ -1347,6 +1354,8 @@ abstract class AssessmentDocumentReference
     FieldValue startBalanceFieldValue,
     double? endBalance,
     FieldValue endBalanceFieldValue,
+    String? botResponse,
+    FieldValue botResponseFieldValue,
   });
 }
 
@@ -1395,6 +1404,7 @@ class _$AssessmentDocumentReference
     FieldValue? inProgressFieldValue,
     FieldValue? startBalanceFieldValue,
     FieldValue? endBalanceFieldValue,
+    FieldValue? botResponseFieldValue,
   }) async {
     final json = {
       ...model.toJson(),
@@ -1407,6 +1417,8 @@ class _$AssessmentDocumentReference
         _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
       if (endBalanceFieldValue != null)
         _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
+      if (botResponseFieldValue != null)
+        _$AssessmentFieldMap['botResponse']!: botResponseFieldValue,
     };
 
     final castedReference = reference.withConverter<Map<String, dynamic>>(
@@ -1425,6 +1437,7 @@ class _$AssessmentDocumentReference
     FieldValue? inProgressFieldValue,
     FieldValue? startBalanceFieldValue,
     FieldValue? endBalanceFieldValue,
+    FieldValue? botResponseFieldValue,
   }) {
     final json = {
       ...model.toJson(),
@@ -1437,6 +1450,8 @@ class _$AssessmentDocumentReference
         _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
       if (endBalanceFieldValue != null)
         _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
+      if (botResponseFieldValue != null)
+        _$AssessmentFieldMap['botResponse']!: botResponseFieldValue,
     };
 
     transaction.set(reference, json, options);
@@ -1451,6 +1466,7 @@ class _$AssessmentDocumentReference
     FieldValue? inProgressFieldValue,
     FieldValue? startBalanceFieldValue,
     FieldValue? endBalanceFieldValue,
+    FieldValue? botResponseFieldValue,
   }) {
     final json = {
       ...model.toJson(),
@@ -1463,6 +1479,8 @@ class _$AssessmentDocumentReference
         _$AssessmentFieldMap['startBalance']!: startBalanceFieldValue,
       if (endBalanceFieldValue != null)
         _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
+      if (botResponseFieldValue != null)
+        _$AssessmentFieldMap['botResponse']!: botResponseFieldValue,
     };
 
     batch.set(reference, json, options);
@@ -1479,6 +1497,8 @@ class _$AssessmentDocumentReference
     FieldValue? startBalanceFieldValue,
     Object? endBalance = _sentinel,
     FieldValue? endBalanceFieldValue,
+    Object? botResponse = _sentinel,
+    FieldValue? botResponseFieldValue,
   }) async {
     assert(
       month == _sentinel || monthFieldValue == null,
@@ -1500,6 +1520,10 @@ class _$AssessmentDocumentReference
       endBalance == _sentinel || endBalanceFieldValue == null,
       "Cannot specify both endBalance and endBalanceFieldValue",
     );
+    assert(
+      botResponse == _sentinel || botResponseFieldValue == null,
+      "Cannot specify both botResponse and botResponseFieldValue",
+    );
     final json = {
       if (month != _sentinel)
         _$AssessmentFieldMap['month']!:
@@ -1525,6 +1549,11 @@ class _$AssessmentDocumentReference
             _$AssessmentPerFieldToJson.endBalance(endBalance as double?),
       if (endBalanceFieldValue != null)
         _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
+      if (botResponse != _sentinel)
+        _$AssessmentFieldMap['botResponse']!:
+            _$AssessmentPerFieldToJson.botResponse(botResponse as String?),
+      if (botResponseFieldValue != null)
+        _$AssessmentFieldMap['botResponse']!: botResponseFieldValue,
     };
 
     return reference.update(json);
@@ -1542,6 +1571,8 @@ class _$AssessmentDocumentReference
     FieldValue? startBalanceFieldValue,
     Object? endBalance = _sentinel,
     FieldValue? endBalanceFieldValue,
+    Object? botResponse = _sentinel,
+    FieldValue? botResponseFieldValue,
   }) {
     assert(
       month == _sentinel || monthFieldValue == null,
@@ -1562,6 +1593,10 @@ class _$AssessmentDocumentReference
     assert(
       endBalance == _sentinel || endBalanceFieldValue == null,
       "Cannot specify both endBalance and endBalanceFieldValue",
+    );
+    assert(
+      botResponse == _sentinel || botResponseFieldValue == null,
+      "Cannot specify both botResponse and botResponseFieldValue",
     );
     final json = {
       if (month != _sentinel)
@@ -1588,6 +1623,11 @@ class _$AssessmentDocumentReference
             _$AssessmentPerFieldToJson.endBalance(endBalance as double?),
       if (endBalanceFieldValue != null)
         _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
+      if (botResponse != _sentinel)
+        _$AssessmentFieldMap['botResponse']!:
+            _$AssessmentPerFieldToJson.botResponse(botResponse as String?),
+      if (botResponseFieldValue != null)
+        _$AssessmentFieldMap['botResponse']!: botResponseFieldValue,
     };
 
     transaction.update(reference, json);
@@ -1605,6 +1645,8 @@ class _$AssessmentDocumentReference
     FieldValue? startBalanceFieldValue,
     Object? endBalance = _sentinel,
     FieldValue? endBalanceFieldValue,
+    Object? botResponse = _sentinel,
+    FieldValue? botResponseFieldValue,
   }) {
     assert(
       month == _sentinel || monthFieldValue == null,
@@ -1625,6 +1667,10 @@ class _$AssessmentDocumentReference
     assert(
       endBalance == _sentinel || endBalanceFieldValue == null,
       "Cannot specify both endBalance and endBalanceFieldValue",
+    );
+    assert(
+      botResponse == _sentinel || botResponseFieldValue == null,
+      "Cannot specify both botResponse and botResponseFieldValue",
     );
     final json = {
       if (month != _sentinel)
@@ -1651,6 +1697,11 @@ class _$AssessmentDocumentReference
             _$AssessmentPerFieldToJson.endBalance(endBalance as double?),
       if (endBalanceFieldValue != null)
         _$AssessmentFieldMap['endBalance']!: endBalanceFieldValue,
+      if (botResponse != _sentinel)
+        _$AssessmentFieldMap['botResponse']!:
+            _$AssessmentPerFieldToJson.botResponse(botResponse as String?),
+      if (botResponseFieldValue != null)
+        _$AssessmentFieldMap['botResponse']!: botResponseFieldValue,
     };
 
     batch.update(reference, json);
@@ -1780,6 +1831,18 @@ abstract class AssessmentQuery
     bool? isNull,
   });
 
+  AssessmentQuery whereBotResponse({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
+    bool? isNull,
+  });
+
   /// Perform an order query based on a [FieldPath].
   ///
   /// This method is considered unsafe as it does check that the field path
@@ -1879,6 +1942,18 @@ abstract class AssessmentQuery
     double? startAfter,
     double? endAt,
     double? endBefore,
+    AssessmentDocumentSnapshot? startAtDocument,
+    AssessmentDocumentSnapshot? endAtDocument,
+    AssessmentDocumentSnapshot? endBeforeDocument,
+    AssessmentDocumentSnapshot? startAfterDocument,
+  });
+
+  AssessmentQuery orderByBotResponse({
+    bool descending = false,
+    String? startAt,
+    String? startAfter,
+    String? endAt,
+    String? endBefore,
     AssessmentDocumentSnapshot? startAtDocument,
     AssessmentDocumentSnapshot? endAtDocument,
     AssessmentDocumentSnapshot? endBeforeDocument,
@@ -2222,6 +2297,53 @@ class _$AssessmentQuery
         whereIn: whereIn?.map((e) => _$AssessmentPerFieldToJson.endBalance(e)),
         whereNotIn:
             whereNotIn?.map((e) => _$AssessmentPerFieldToJson.endBalance(e)),
+        isNull: isNull ??
+            (isEqualTo == null ? false : null) ??
+            (isNotEqualTo == null ? true : null),
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  @override
+  AssessmentQuery whereBotResponse({
+    Object? isEqualTo = _sentinel,
+    Object? isNotEqualTo = _sentinel,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$AssessmentQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$AssessmentFieldMap['botResponse']!,
+        isEqualTo: isEqualTo != _sentinel
+            ? _$AssessmentPerFieldToJson.botResponse(isEqualTo as String?)
+            : null,
+        isNotEqualTo: isNotEqualTo != _sentinel
+            ? _$AssessmentPerFieldToJson.botResponse(isNotEqualTo as String?)
+            : null,
+        isLessThan: isLessThan != null
+            ? _$AssessmentPerFieldToJson.botResponse(isLessThan as String?)
+            : null,
+        isLessThanOrEqualTo: isLessThanOrEqualTo != null
+            ? _$AssessmentPerFieldToJson
+                .botResponse(isLessThanOrEqualTo as String?)
+            : null,
+        isGreaterThan: isGreaterThan != null
+            ? _$AssessmentPerFieldToJson.botResponse(isGreaterThan as String?)
+            : null,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo != null
+            ? _$AssessmentPerFieldToJson
+                .botResponse(isGreaterThanOrEqualTo as String?)
+            : null,
+        whereIn: whereIn?.map((e) => _$AssessmentPerFieldToJson.botResponse(e)),
+        whereNotIn:
+            whereNotIn?.map((e) => _$AssessmentPerFieldToJson.botResponse(e)),
         isNull: isNull ??
             (isEqualTo == null ? false : null) ??
             (isNotEqualTo == null ? true : null),
@@ -2683,6 +2805,79 @@ class _$AssessmentQuery
   }) {
     final query = $referenceWithoutCursor
         .orderBy(_$AssessmentFieldMap['endBalance']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$AssessmentQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  @override
+  AssessmentQuery orderByBotResponse({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    AssessmentDocumentSnapshot? startAtDocument,
+    AssessmentDocumentSnapshot? endAtDocument,
+    AssessmentDocumentSnapshot? endBeforeDocument,
+    AssessmentDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$AssessmentFieldMap['botResponse']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -5477,6 +5672,7 @@ Assessment _$AssessmentFromJson(Map<String, dynamic> json) => Assessment(
       inProgress: json['inProgress'] as bool,
       startBalance: (json['startBalance'] as num?)?.toDouble(),
       endBalance: (json['endBalance'] as num?)?.toDouble(),
+      botResponse: json['botResponse'] as String?,
     );
 
 const _$AssessmentFieldMap = <String, String>{
@@ -5485,6 +5681,7 @@ const _$AssessmentFieldMap = <String, String>{
   'inProgress': 'inProgress',
   'startBalance': 'startBalance',
   'endBalance': 'endBalance',
+  'botResponse': 'botResponse',
 };
 
 // ignore: unused_element
@@ -5499,6 +5696,8 @@ abstract class _$AssessmentPerFieldToJson {
   static Object? startBalance(double? instance) => instance;
   // ignore: unused_element
   static Object? endBalance(double? instance) => instance;
+  // ignore: unused_element
+  static Object? botResponse(String? instance) => instance;
 }
 
 Map<String, dynamic> _$AssessmentToJson(Assessment instance) =>
@@ -5508,6 +5707,7 @@ Map<String, dynamic> _$AssessmentToJson(Assessment instance) =>
       'inProgress': instance.inProgress,
       'startBalance': instance.startBalance,
       'endBalance': instance.endBalance,
+      'botResponse': instance.botResponse,
     };
 
 Income _$IncomeFromJson(Map<String, dynamic> json) => Income(

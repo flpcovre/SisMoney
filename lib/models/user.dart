@@ -34,13 +34,15 @@ class Assessment {
   final bool inProgress;
   double? startBalance;
   double? endBalance;
+  String? botResponse;
 
   Assessment({
     required this.month,
     required this.year,
     required this.inProgress,
     this.startBalance,
-    this.endBalance
+    this.endBalance,
+    this.botResponse
   });
 
   factory Assessment.fromJson(Map<String, Object?> json) =>
