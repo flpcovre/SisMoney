@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sismoney/components/base_dialog.dart';
-import 'package:sismoney/components/base_flushbar.dart';
+import 'package:sismoney/components/bot_response_modal_bottom_sheet/bot_response_modal_bottom_sheet.dart';
 import 'package:sismoney/components/header_card.dart';
 import 'package:sismoney/components/income_modal_bottom_sheet/income_modal_bottom_sheet.dart';
 import 'package:sismoney/components/skeletons/card_skeleton.dart';
@@ -161,28 +161,30 @@ class IncomePage extends StatelessWidget {
             child: Obx(() => ElevatedButton(
                 onPressed: () async {
                   if (controller.inProgress.value) {
-                    try {
-                      await BaseDialog.show(
-                        context,
-                        title: 'Atenção!',
-                        message: 'Você realmente deseja finalizar esse mês? Não será possível reabri-lo depois.',
-                        type: 'choice',
-                        icon: Icons.warning_amber_rounded,
-                        iconColor: Colors.orange,
-                        titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        messageStyle: TextStyle(fontSize: 16),
-                        onConfirm: () async {
-                          await controller.endAssessment(assessmentSnapshot);
-                        },
-                      );
-                    } catch (e) {
-                      BaseFlushBar.show(
-                        context,
-                        message: '$e', 
-                        type: 'error',
-                        isDismissible: true
-                      );
-                    }
+                    await BaseDialog.show(
+                      context,
+                      title: 'Atenção!',
+                      message: 'Você realmente deseja finalizar esse mês? Não será possível reabri-lo depois.',
+                      type: 'choice',
+                      icon: Icons.warning_amber_rounded,
+                      iconColor: Colors.orange,
+                      titleStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      messageStyle: TextStyle(fontSize: 16),
+                      onConfirm: () async {
+                        await controller.endAssessment(assessmentSnapshot);
+                        await BotResponseModalBottomSheet.show(
+                          context,
+                          assessmentMonth: assessmentSnapshot.data.month,
+                          assessmentYear: assessmentSnapshot.data.year
+                        );
+                      },
+                    );
+                  } else {
+                    await BotResponseModalBottomSheet.show(
+                      context,
+                      assessmentMonth: assessmentSnapshot.data.month,
+                      assessmentYear: assessmentSnapshot.data.year
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(

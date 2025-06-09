@@ -6,9 +6,13 @@ import 'package:sismoney/services/contracts/income_service.dart';
 
 class IncomeServiceImpl implements IncomeService {
   final IncomeRepository _incomeRepository;
-  final AssessmentService _assessmentService;
+  late final AssessmentService _assessmentService;
 
-  IncomeServiceImpl(this._incomeRepository, this._assessmentService);
+  IncomeServiceImpl(this._incomeRepository);
+
+  setAssessmentService(AssessmentService service) {
+    _assessmentService = service;
+  }
 
   @override
   Future<void> createIncome(Authenticatable user, Income income, DateTime date) async {
@@ -39,5 +43,10 @@ class IncomeServiceImpl implements IncomeService {
     }
     
     return total;
+  }
+  
+  @override
+  Future<List<Income>> getIncomes(AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
+    return await _incomeRepository.getAllObjectsByAssessments(assessmentSnapshot);
   }
 }

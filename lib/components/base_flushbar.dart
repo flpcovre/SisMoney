@@ -7,9 +7,7 @@ class BaseFlushBar {
     required String message,
     required String type,
     bool isDismissible = true,
-  }) {
-    
-    
+  }) { 
     Flushbar(
       margin: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
       borderRadius: BorderRadius.circular(12),

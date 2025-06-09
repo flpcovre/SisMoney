@@ -21,7 +21,7 @@ class IncomePageController extends GetxController {
     final Assessment assessment = Assessment(
       month: assessmentSnapshot.data.month, 
       year: assessmentSnapshot.data.year, 
-      inProgress: assessmentSnapshot.data.inProgress
+      inProgress: assessmentSnapshot.data.inProgress,
     );
 
     await _assessmentController.end(assessment);

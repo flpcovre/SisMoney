@@ -139,10 +139,9 @@ class QuestionsPage extends StatelessWidget {
                                           title: Text(alt['description']),
                                           value: alt['id'].toString(),
                                           groupValue:
-                                              controller.answers[question.id],
+                                              controller.answers[question.id]?.toString(),
                                           onChanged: (value) {
-                                            controller.answers[question.id] =
-                                                value!;
+                                            controller.answers[question.id] = int.parse(value!);
                                                 
                                             controller.questionsAnswered.value =
                                                 controller.answers.length ==
@@ -177,7 +176,9 @@ class QuestionsPage extends StatelessWidget {
                           ),
                           padding: EdgeInsets.symmetric(vertical: 16),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await controller.saveAnswers();
+                        },
                         child: Text(
                           'Tudo pronto!',
                           style: TextStyle(fontSize: 18),

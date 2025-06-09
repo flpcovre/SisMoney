@@ -20,6 +20,14 @@ class IncomeController {
     return _incomeService.getAllIncomes(assessmentSnapshot);
   }
 
+  Future<List<Income>> fetch (AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
+    try {
+      return await _incomeService.getIncomes(assessmentSnapshot);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<double> getIncomeBalance() {
     try {
       return _incomeService.calculateUserIncomeBalance(_user);

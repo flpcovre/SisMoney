@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sismoney/controllers/answer_controller.dart';
 import 'package:sismoney/controllers/auth_controller.dart';
+import 'package:sismoney/models/user.dart';
 import 'package:sismoney/providers/authenticated_bindings.dart';
 import 'package:sismoney/routes/router_app.dart';
 
@@ -22,6 +24,7 @@ class SplashPageController extends GetxController
 
   final _authController = Get.find<AuthController>();
   bool isUserAuthenticated = false;
+  List<Answer> answers = [];
 
   @override
   void onInit() {
@@ -73,6 +76,9 @@ class SplashPageController extends GetxController
     if (user != null) {
       AuthenticatedBindings(user).dependencies();
 
+      final AnswerController answerController = Get.find<AnswerController>();
+      answers = await answerController.fetch();
+
       isUserAuthenticated = true;
     } else {
       isUserAuthenticated = false;
@@ -98,10 +104,14 @@ class SplashPageController extends GetxController
     }
   }
 
-  void _startExitAnimation() {
-    exitController.forward().whenComplete(() {
+  void _startExitAnimation() async {
+    exitController.forward().whenComplete(() async {
       if (isUserAuthenticated) {
-        Get.toNamed(RouterApp.home);
+        if (answers.isEmpty) {
+          Get.toNamed(RouterApp.questions);
+        } else {
+          Get.toNamed(RouterApp.home);
+        }
       } else {
         Get.toNamed(RouterApp.login);
       }
