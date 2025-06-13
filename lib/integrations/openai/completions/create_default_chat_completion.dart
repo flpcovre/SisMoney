@@ -11,7 +11,7 @@ class CreateDefaultChatCompletion extends Openai {
     final response = await request.post(
       url: '/completions',
       body: {
-        "model": "gpt-4.1",
+        "model": "gpt-4o-mini",
         "messages": [
           {"role": "developer", "content": instructions},
           {"role": "user", "content": message},
