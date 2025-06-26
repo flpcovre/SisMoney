@@ -37,4 +37,15 @@ class IncomeRepositoryImpl implements IncomeRepository {
 
     return allIncomes;
   }
+  
+  @override
+  Future<List<Income>> getAllObjectsByAssessments(AssessmentQueryDocumentSnapshot assessmentSnapshot) async {
+    final snapshot = await assessmentSnapshot
+                            .reference
+                            .incomes
+                            .orderByDay(descending: true)
+                            .get();
+                      
+    return snapshot.docs.map((doc) => doc.data).toList();
+  }
 }

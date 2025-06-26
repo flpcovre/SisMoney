@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sismoney/components/base_flushbar.dart';
 
 class BaseDialog {
   static Future<void> show(
@@ -52,10 +53,20 @@ class BaseDialog {
               ),
               TextButton(
                 onPressed: () async {
-                  if (onConfirm != null) {
-                    await Future.sync(onConfirm);
+                  try {
+                    if (onConfirm != null) {
+                      await Future.sync(onConfirm);
+                    }
+                    Navigator.of(context).pop();
+                  } catch (e) {
+                    Navigator.of(context).pop();
+                      BaseFlushBar.show(
+                        context,
+                        message: '$e', 
+                        type: 'error',
+                        isDismissible: true
+                      );
                   }
-                  Navigator.of(context).pop();
                 },
                 style: ButtonStyle(
                   foregroundColor: WidgetStateProperty.all<Color>(Colors.black),

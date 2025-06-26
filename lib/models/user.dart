@@ -32,11 +32,17 @@ class Assessment {
   final int month;
   final int year;
   final bool inProgress;
+  double? startBalance;
+  double? endBalance;
+  String? botResponse;
 
   Assessment({
     required this.month,
     required this.year,
     required this.inProgress,
+    this.startBalance,
+    this.endBalance,
+    this.botResponse
   });
 
   factory Assessment.fromJson(Map<String, Object?> json) =>
@@ -64,7 +70,25 @@ class Income {
   Map<String, Object?> toJson() => _$IncomeToJson(this);
 }
 
+@JsonSerializable(
+  explicitToJson: true,
+  createFieldMap: true,
+  createPerFieldToJson: true,
+)
+class Answer {
+  final int questionId;
+  final int alternativeId;
+
+  Answer({required this.questionId, required this.alternativeId});
+
+  factory Answer.fromJson(Map<String, Object?> json) =>
+    _$AnswerFromJson(json);
+  
+  Map<String, Object?> toJson() => _$AnswerToJson(this);
+}
+
 @Collection<User>('users')
 @Collection<Assessment>('users/*/assessments')
 @Collection<Income>('users/*/assessments/*/incomes')
+@Collection<Answer>('users/*/answers')
 final usersRef = UserCollectionReference();

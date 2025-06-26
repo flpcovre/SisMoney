@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sismoney/controllers/answer_controller.dart';
 import 'package:sismoney/controllers/assessment_controller.dart';
 import 'package:sismoney/controllers/income_controller.dart';
 import 'package:sismoney/controllers/question_controller.dart';
@@ -18,5 +19,6 @@ class AuthenticatedBindings extends Bindings {
     Get.lazyPut<QuestionController>(() => QuestionController(Get.find()));
     Get.lazyPut<AssessmentController>(() => AssessmentController(Get.find(), Get.find()));
     Get.lazyPut<IncomeController>(() => IncomeController(Get.find(), Get.find()));
+    Get.lazyPut<AnswerController>(() => AnswerController(Get.find(), Get.find()));
   }
 }
